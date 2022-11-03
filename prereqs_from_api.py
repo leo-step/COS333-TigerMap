@@ -31,7 +31,7 @@ req = requests.get(
 text = req.text
 response = json.loads(text)
 with open("out.json", "w") as file:
-    json.dump(response, file)
+    json.dump(response, file, indent=4)
 print(response["course_details"]["course_detail"]["other_restrictions"])
 
 def get_prereqs(prereq_text):
