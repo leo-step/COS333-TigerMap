@@ -4,8 +4,12 @@ import base64
 from dotenv import load_dotenv
 import os
 import re
+import pymongo
 
 load_dotenv()
+
+client = pymongo.MongoClient(os.getenv("DB_CONN"))
+db = client.courses
 
 def refreshToken():
     req = requests.post(
@@ -30,9 +34,10 @@ req = requests.get(
 
 text = req.text
 response = json.loads(text)
-with open("out.json", "w") as file:
-    json.dump(response, file, indent=4)
-print(response["course_details"]["course_detail"]["other_restrictions"])
+
+response["course_details"]["course_detail"]["_id"] = response["course_details"]["course_detail"]["course_id"]
+
+db.details.insert_one(response["course_details"]["course_detail"])
 
 def get_prereqs(prereq_text):
     first_sentence = prereq_text.split('.')[0]
@@ -43,4 +48,5 @@ def get_prereqs(prereq_text):
     prereqs.extend(list(map(lambda x: x[:3] + ' ' + x[3:], no_space)))
     return prereqs
 
+# create dicts and graph
 print(get_prereqs(response["course_details"]["course_detail"]["other_restrictions"]))
