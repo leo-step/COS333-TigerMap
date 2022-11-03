@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState, useEffect, code } from 'react';
+import { useState} from 'react';
 
 function App() {
-    const [response, setResponse] = useState("Hi");
+  const [response, setResponse] = useState("Hi");
 
 
 
