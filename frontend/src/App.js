@@ -23,7 +23,7 @@ function App() {
       <h2>{response && response.crosslistings} - {response && response.transcript_title}</h2>
       <p>{response && response.description}</p>
       <p><b>Requirements:</b> {response && response.other_restrictions}</p>
-      <p><b>Extracted codes:</b> {response && response.prereqs}</p>
+      <p><b>Prerequisites:</b> {response && response.prereqs.map(prereq => <div><a href="#">{prereq}</a><br/></div>)}</p>
       <button onClick={() => setCourseId("001397")}>Switch</button>
       <hr/>
       <h2>Details</h2>

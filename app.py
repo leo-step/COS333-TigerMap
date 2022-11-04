@@ -39,7 +39,7 @@ def index():
 def api():
     course_id = request.get_json()["course_id"]
     details = db.details.find_one({"_id": course_id})
-    details["prereqs"] = ', '.join(get_prereqs(details["other_restrictions"]))
+    details["prereqs"] = get_prereqs(details["other_restrictions"])
     return details
 
 if __name__ == "__main__":
