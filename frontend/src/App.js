@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
     const [response, setResponse] = useState(null);
+    const [courseId, setCourseId] = useState("014294");
     
     useEffect(() => {
       fetch("http://127.0.0.1:5000/api", {
@@ -9,17 +10,24 @@ function App() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({"course_id": "014294"}),
+        body: JSON.stringify({"course_id": courseId}),
       })
       .then(response => response.json())
-      .then(json => setResponse(JSON.stringify(json, null, 2)))
-    }, []);
+      .then(json => setResponse(json))
+    }, [courseId]);
 
   return (
     <div>
       <h1>TigerMap</h1>
       <hr/>
-      <pre>{response}</pre>
+      <h2>{response && response.crosslistings} - {response && response.transcript_title}</h2>
+      <p>{response && response.description}</p>
+      <p><b>Requirements:</b> {response && response.other_restrictions}</p>
+      <p><b>Extracted codes:</b> {response && response.prereqs}</p>
+      <button onClick={() => setCourseId("001397")}>Switch</button>
+      <hr/>
+      <h2>Details</h2>
+      <pre>{JSON.stringify(response, null, 2)}</pre>
     </div>
   );
 }
