@@ -1,30 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [getMessage, setGetMessage] = useState({})
+    const [response, setResponse] = useState(null);
+    
+    useEffect(() => {
+      fetch("http://127.0.0.1:5000/api", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({"course_id": "014294"}),
+      })
+      .then(response => response.json())
+      .then(json => setResponse(JSON.stringify(json, null, 2)))
+    }, []);
 
-  useEffect(()=>{
-    axios.get('http://127.0.0.1:5000/a').then(response => {
-      console.log("SUCCESS", response)
-      setGetMessage(response)
-    }).catch(error => {
-      console.log(error)
-    })
-
-  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>React + Flask Tutorial</p>
-        <div>{getMessage.status === 200 ?
-          <h3>{getMessage.data.message}</h3>
-          :
-          <h3>LOADING</h3>}</div>
-      </header>
+    <div>
+      <h1>TigerMap</h1>
+      <hr/>
+      <pre>{response}</pre>
     </div>
   );
 }
