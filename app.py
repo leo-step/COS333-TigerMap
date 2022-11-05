@@ -35,9 +35,10 @@ def index():
 
 # api.add_resource(HelloApiHandler, '/a')
 
-@app.route("/api", methods=["POST"])
+@app.route("/api")
 def api():
-    course_id = request.get_json()["course_id"]
+    # handle case when course_id not provided or invalid like in A3
+    course_id = request.args.get("course_id")
     details = db.details.find_one({"_id": course_id})
     details["prereqs"] = get_prereqs(details["other_restrictions"])
     return details
