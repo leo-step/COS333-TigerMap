@@ -37,7 +37,7 @@ def get_details(term, course_id):
 
 # get a list of all course ids for a term
 def get_course_ids(term):
-    return ["002051", "002054"]
+    return ["002051", "002054", "016058"]
 
 # extract prerequisites (class codes) from text
 def get_prereqs(course_details):
