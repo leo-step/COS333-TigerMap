@@ -1,5 +1,5 @@
 from utils import get_details, get_course_ids, get_prereqs, insert_details
-from terms import *
+from constants import *
 
 '''
 
