@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [response, setResponse] = useState(null);
   const [courseId, setCourseId] = useState("014294");
 
+  /* we need to change this so that you get the courseId from the url,
+    and so that you can hook up the href properly */
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ course_id: courseId }),
-    })
-      .then((response) => response.json())
-      .then((json) => setResponse(json));
+    axios.get("http://127.0.0.1:5000/api", {params: {course_id: courseId}})
+      .then((response) => setResponse(response.data));
   }, [courseId]);
 
   return (
@@ -25,14 +21,11 @@ function App() {
         {response && response.transcript_title}
       </h2>
       <p>{response && response.description}</p>
-      <p>
-        <b>Requirements:</b> {response && response.other_restrictions}
-      </p>
-      <p>
-        <b>Prerequisites:</b>{" "}
+      <b>Requirements:</b> {response && response.other_restrictions}
+      <p><b>Prerequisites:</b>
         {response &&
           response.prereqs.map((prereq) => (
-            <div>
+            <div key={prereq}>
               <a href="#" onClick={() => setCourseId("002054")}>
                 {prereq}
               </a>
