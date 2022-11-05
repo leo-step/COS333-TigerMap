@@ -1,4 +1,5 @@
-from utils import get_details, get_course_ids, get_prereqs, insert_details
+from utils import get_details, get_course_ids, get_prereqs, \
+    get_crosslistings, insert_details
 from constants import *
 
 '''

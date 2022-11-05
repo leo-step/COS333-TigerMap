@@ -39,6 +39,10 @@ def get_details(term, course_id):
 def get_course_ids(term):
     return ["002051", "002054", "016058"]
 
+# return a list of crosslistings associated with a course
+def get_crosslistings(course_details):
+    return []
+
 # extract prerequisites (class codes) from text
 def get_prereqs(course_details):
     prereq_text = course_details["other_restrictions"]
