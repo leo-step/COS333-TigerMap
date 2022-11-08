@@ -28,7 +28,7 @@ def refreshToken():
 
 req = requests.get(
     "https://api.princeton.edu:443/student-app/1.0.1/courses/details",
-    params={"fmt": "json", "term": "1232", "course_id": "002054"}, # COS 324
+    params={"fmt": "json", "term": "1232", "course_id": "014294"}, # COS 324
     headers={"Authorization": "Bearer " + refreshToken()},
 )
 

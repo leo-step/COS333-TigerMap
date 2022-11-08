@@ -3,7 +3,7 @@ import axios from "axios";
 
 function App() {
   const [response, setResponse] = useState(null);
-  const [courseId, setCourseId] = useState("014294");
+  const [courseId, setCourseId] = useState("002051");
 
   /* we need to change this so that you get the courseId from the url,
     and so that you can hook up the href properly */

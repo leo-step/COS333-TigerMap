@@ -15,6 +15,8 @@ CORS(app)
 db = pymongo.MongoClient(os.getenv("DB_CONN")).courses
 
 def get_prereqs(prereq_text):
+    if not prereq_text:
+        return []
     first_sentence = prereq_text.split('.')[0]
     code_pattern = re.compile(r"[A-Z][A-Z][A-Z] \d\d\d")
     no_space_pattern = re.compile(r"[A-Z][A-Z][A-Z]\d\d\d")
