@@ -41,11 +41,13 @@ def get_course_ids(term):
 
 # return a list of crosslistings associated with a course
 def get_crosslistings(course_details):
-    return []
+    return course_details["crosslistings"].split(" / ")
 
 # extract prerequisites (class codes) from text
 def get_prereqs(course_details):
     prereq_text = course_details["other_restrictions"]
+    if not prereq_text:
+        return []
     first_sentence = prereq_text.split('.')[0]
     code_pattern = re.compile(r"[A-Z][A-Z][A-Z] \d\d\d")
     no_space_pattern = re.compile(r"[A-Z][A-Z][A-Z]\d\d\d")
@@ -59,3 +61,8 @@ def insert_details(details):
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
     db.details.insert_many(details)
+
+def insert_graph(graph):
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    db.graph.insert_one(graph)
