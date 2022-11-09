@@ -1,9 +1,5 @@
-import requests
-import json
-import base64
 from dotenv import load_dotenv
 import os
-import re
 import pymongo
 
 load_dotenv()

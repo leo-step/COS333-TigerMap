@@ -16,7 +16,8 @@ for i, term in enumerate(terms):
     course_details = []
     for course_id in course_ids:
         course_detail = get_details(term, course_id)
-        if course_detail["subject"] + course_detail["catnum"] in prereq_code_to_id:
+        if course_detail["subject"] + course_detail["catnum"] in prereq_code_to_id \
+             or course_id in id_to_prereq_codes:
             continue
         id_to_prereq_codes[course_id] = get_prereqs(course_detail)
         for crosslisting in get_crosslistings(course_detail):
