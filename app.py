@@ -12,7 +12,7 @@ app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 app.secret_key = os.getenv("APP_SECRET_KEY")
 CORS(app)
 
-db = pymongo.MongoClient(os.getenv("DB_CONN")).courses
+db = pymongo.MongoClient(os.getenv("DB_CONN")).testcourses
 
 def get_prereqs(prereq_text):
     if not prereq_text:

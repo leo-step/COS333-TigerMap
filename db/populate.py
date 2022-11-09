@@ -1,55 +1,46 @@
 from utils import get_details, get_course_ids, get_prereqs, \
-    get_crosslistings, insert_details, insert_graph
+    get_crosslistings, insert_details, insert_graph, get_transpose
 from constants import *
 
-terms = [FALL22]
+terms = [FALL20, SPRING20, FALL21, SPRING21, FALL22, SPRING22][::-1]
 
 id_to_prereq_codes = {} # course_id => [course codes]
 prereq_code_to_id = {} # course code => course_id
-graph = {} # course_id => [course_ids]
+prereq_graph = {} # course_id => [course_ids]
 
-'''
+term_course_ids = list(map(lambda term: get_course_ids(term), terms))
 
-{"12345": ["COS 126"], "54321": []}
-
-{"COS 226": "12345",
-"COS 126": "54321",
-"ECE 226": "12345"}
-
-'''
-
-for term in terms[::-1]:
-    course_ids = get_course_ids(term)
+for i, term in enumerate(terms):
+    print(f"Started term {term}")
+    course_ids = term_course_ids[i]
     course_details = []
     for course_id in course_ids:
         course_detail = get_details(term, course_id)
+        if course_detail["subject"] + course_detail["catnum"] in prereq_code_to_id:
+            continue
         id_to_prereq_codes[course_id] = get_prereqs(course_detail)
         for crosslisting in get_crosslistings(course_detail):
             prereq_code_to_id[crosslisting] = course_id
         course_details.append(course_detail)
+        if len(course_details) % 25 == 0:
+            print(f"{len(course_details)} completed")
     insert_details(course_details)
+    print(f"Inserted {len(course_details)} course details")
 
 for key, arr in id_to_prereq_codes.items():
-    graph[key] = list(map(lambda x: prereq_code_to_id[x], arr))
+    id_arr = []
+    for code in arr:
+        if code in prereq_code_to_id:
+            id_arr.append(prereq_code_to_id[code])
+    if id_arr:
+        prereq_graph[key] = id_arr
 
-print(graph)
-insert_graph(graph)
+postreq_graph = get_transpose(prereq_graph)
 
-'''
+prereq_graph["_id"] = "prereq"
+insert_graph(prereq_graph)
+print("Inserted prereq graph")
 
-================== TODO ==================
-
-1. choose terms to use, put into list
-2. in a loop, go from newest to oldest term,
-   getting course ids and their details.
-   maintain prereqs and course id dicts. skip over
-   seen class codes in course id dict.
-   insert details into db at the end of every term.
-3. create graph from prereq and course id dicts
-4. insert all dicts into the database (write util)
-
-'''
-
-# eco300 = get_details(FALL22, "001388")
-# print(get_prereqs(eco300))
-# insert_details([eco300])
+postreq_graph["_id"] = "postreq"
+insert_graph(postreq_graph)
+print("Inserted postreq graph")
