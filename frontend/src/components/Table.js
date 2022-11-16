@@ -4,7 +4,14 @@ function createTable() {
     const testData = [{code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}]
     
   return (
-    <Table striped bordered hover>
+    
+    <div style = {{"borderRadius": "25px", "paddingTop": "10px", "paddingBottom": "10px"}} className='m-5 myTable' >
+       
+      <h2 style={{"textAlign": "center"}}>
+        Prerequisites
+      </h2>
+    <Table borderless hover>
+      
       <tbody>
         {testData.map(function(d, idx) {
             return (
@@ -18,6 +25,7 @@ function createTable() {
 
       </tbody>
     </Table>
+    </div>
   );
 }
 

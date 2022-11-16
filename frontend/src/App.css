@@ -1,0 +1,15 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #d8aded;
+  }
+table {
+    
+    background-color: #FFFFFF;
+}
+body {
+    background-color: ghostwhite !important; 
+}
+.myTable {
+    border-radius: "25px";
+    background-color: white;
+}
+  
