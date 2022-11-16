@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS # comment this on deployment
 import pymongo
 import os
@@ -11,18 +11,9 @@ app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 app.secret_key = os.getenv("APP_SECRET_KEY")
 CORS(app)
 
-db = pymongo.MongoClient(os.getenv("DB_CONN")).testcourses # switch to courses!!!
-
-def get_prereqs(prereq_text):
-    if not prereq_text:
-        return []
-    first_sentence = prereq_text.split('.')[0]
-    code_pattern = re.compile(r"[A-Z][A-Z][A-Z] \d\d\d")
-    no_space_pattern = re.compile(r"[A-Z][A-Z][A-Z]\d\d\d")
-    prereqs = code_pattern.findall(first_sentence)
-    no_space = no_space_pattern.findall(first_sentence)
-    prereqs.extend(list(map(lambda x: x[:3] + ' ' + x[3:], no_space)))
-    return prereqs
+db = pymongo.MongoClient(os.getenv("DB_CONN")).courses 
+prereqs = db.graph.find_one({"_id": "prereq"})
+postreqs = db.graph.find_one({"_id": "postreq"})
 
 @app.route("/")
 def index():
@@ -30,10 +21,15 @@ def index():
 
 @app.route("/api")
 def api():
+    fields = {"crosslistings":1, "long_title":1, "distribution_area_short":1}
+    details_fields = {"crosslistings":1, "long_title":1, "distribution_area_short":1, "description":1}
     course_id = request.args.get("course_id")
-    details = db.details.find_one({"_id": course_id})
-    details["prereqs"] = get_prereqs(details["other_restrictions"])
-    return details
+    prereq_details = list(db.details.find({"_id": {"$in" : prereqs[course_id]}}, fields))
+    postreq_details = list(db.details.find({"_id": {"$in" : postreqs[course_id]}}, fields))
+    course_details = db.details.find_one({"_id": course_id}, details_fields)
+    course_details['prereqs'] = prereq_details
+    course_details['postreqs'] = postreq_details
+    return jsonify(course_details)
 
 if __name__ == "__main__":
     app.run()
