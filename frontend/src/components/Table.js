@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 
-function createTable() {
-    const testData = [{code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}]
+function createTable(props) {
+//    const testData = [{code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}]
     
   return (
     
@@ -13,12 +13,12 @@ function createTable() {
     <Table borderless hover>
       
       <tbody>
-        {testData.map(function(d, idx) {
+        {props.courses.map(function(d, idx) {
             return (
                 <tr>
-                    <td>{d.code}</td>
-                    <td>{d.title}</td>
-                    <td>{d.area}</td>
+                    <td>{d.crosslistings}</td>
+                    <td>{d.long_title}</td>
+                    <td>{d.distribution_area_short}</td>
                 </tr>
             )
         })}
