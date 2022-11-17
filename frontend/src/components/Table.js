@@ -13,12 +13,12 @@ function createTable(props) {
     <Table borderless hover>
       
       <tbody>
-        {props.courses.map(function(d, idx) {
+        {props.courses.map(function(course) {
             return (
-                <tr>
-                    <td>{d.crosslistings}</td>
-                    <td>{d.long_title}</td>
-                    <td>{d.distribution_area_short}</td>
+                <tr key={course._id}>
+                    <td>{course.crosslistings}</td>
+                    <td>{course.long_title}</td>
+                    <td>{course.distribution_area_short}</td>
                 </tr>
             )
         })}

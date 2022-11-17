@@ -15,8 +15,6 @@ function App() {
   const [query, setQuery] = useState(null);
   const [data, setData] = useState(null);
 
-  /* we need to change this so that you get the courseId from the url,
-    and so that you can hook up the href properly */
   useEffect(() => {
     if (query) {
       axios
