@@ -53,6 +53,7 @@ function App() {
             setCourseId(event._id);
           }}
           options={response}
+          placeholder="Search"
         />
       </Row>
       <Row>
