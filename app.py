@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS # comment this on deployment
+from collections import defaultdict
 import pymongo
 import os
 
@@ -11,8 +12,8 @@ app.secret_key = os.getenv("APP_SECRET_KEY")
 CORS(app)
 
 db = pymongo.MongoClient(os.getenv("DB_CONN")).courses 
-prereqs = db.graph.find_one({"_id": "prereq"})
-postreqs = db.graph.find_one({"_id": "postreq"})
+prereqs = defaultdict(list, db.graph.find_one({"_id": "prereq"}))
+postreqs = defaultdict(list, db.graph.find_one({"_id": "postreq"}))
 
 @app.route("/")
 def index():
@@ -23,8 +24,8 @@ def api():
     fields = {"crosslistings":1, "long_title":1, "distribution_area_short":1}
     details_fields = {"crosslistings":1, "long_title":1, "distribution_area_short":1, "description":1}
     course_id = request.args.get("course_id")
-    prereq_details = list(db.details.find({"_id": {"$in" : prereqs[course_id]}}, fields))
-    postreq_details = list(db.details.find({"_id": {"$in" : postreqs[course_id]}}, fields))
+    prereq_details = list(db.details.find({"_id": {"$in" : prereqs[course_id]}}, fields).sort("crosslistings", 1))
+    postreq_details = list(db.details.find({"_id": {"$in" : postreqs[course_id]}}, fields).sort("crosslistings", 1))
     course_details = db.details.find_one({"_id": course_id}, details_fields)
     course_details['prereqs'] = prereq_details
     course_details['postreqs'] = postreq_details
