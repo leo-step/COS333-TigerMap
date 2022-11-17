@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS # comment this on deployment
 import pymongo
 import os
-import re
 
 load_dotenv()
 
@@ -31,5 +30,25 @@ def api():
     course_details['postreqs'] = postreq_details
     return jsonify(course_details)
 
+@app.route("/search")
+def search():
+    query = request.args.get("query")
+    results = list(db.details.aggregate([
+        {
+            "$search": {
+            "index": "details",
+            "text": {
+                    "query": query,
+                    "path": ["crosslistings", "long_title"]
+                }
+            }
+        },
+        { "$project": {
+            "crosslistings": 1,
+            "long_title": 1
+        }},
+        { "$limit": 5 }
+    ]))
+    return jsonify(results)
 if __name__ == "__main__":
     app.run()
