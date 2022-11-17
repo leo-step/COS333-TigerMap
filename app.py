@@ -34,6 +34,7 @@ def api():
 @app.route("/search")
 def search():
     query = request.args.get("query")
+    print(query)
     results = list(db.details.aggregate([
         {
             "$search": {

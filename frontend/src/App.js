@@ -57,10 +57,10 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <Table courses={(data && data.prereqs) || []}/>
+          <Table setCourseId={setCourseId} courses={(data && data.prereqs) || []}/>
         </Col>
         <Col>
-          <Table courses={(data && data.postreqs) || []}/>
+          <Table setCourseId={setCourseId} courses={(data && data.postreqs) || []}/>
         </Col>
       </Row>
     </Container>

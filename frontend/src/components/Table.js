@@ -15,7 +15,7 @@ function createTable(props) {
       <tbody>
         {props.courses.map(function(course) {
             return (
-                <tr key={course._id}>
+                <tr key={course._id} onClick={ () => props.setCourseId(course._id)}>
                     <td>{course.crosslistings}</td>
                     <td>{course.long_title}</td>
                     <td>{course.distribution_area_short}</td>
