@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CurrentCourse from "./components/CurrentCourse";
 import Select from "react-select";
+import logo from "./images/logo.png";
 
 function App() {
   const [response, setResponse] = useState([]);
@@ -42,28 +43,46 @@ function App() {
   }, [courseId]);
 
   return (
-    <Container fluid>
-      <Row>
-        <Col>
-          <CurrentCourse details={data}/>
-        </Col>
-        <Select
-          onInputChange={(val) => setQuery(val)}
-          onChange={(event) => {
-            setCourseId(event._id);
-          }}
-          options={response}
-          placeholder="Search"
-        />
+    <Container fluid style={{maxWidth: "1600px"}}>
+      <Row className="justify-content-center">
+        <div style={{ maxWidth: "500px" }}>
+          <img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>
+          <Select
+            onInputChange={(val) => setQuery(val)}
+            onChange={(event) => {
+              setCourseId(event._id);
+            }}
+            options={response}
+            placeholder="Search"
+            className="m-2"
+          />
+        </div>
       </Row>
-      <Row>
-        <Col>
-          <Table setCourseId={setCourseId} courses={(data && data.prereqs) || []}/>
-        </Col>
-        <Col>
-          <Table setCourseId={setCourseId} courses={(data && data.postreqs) || []}/>
-        </Col>
-      </Row>
+      {data && (
+        <Row>
+          <Col>
+            <CurrentCourse details={data} />
+          </Col>
+        </Row>
+      )}
+      {data && (
+        <Row>
+          <Col>
+            <Table
+              header={"Prerequsites"}
+              setCourseId={setCourseId}
+              courses={data.prereqs}
+            />
+          </Col>
+          <Col>
+            <Table
+              header={"Postrequsites"}
+              setCourseId={setCourseId}
+              courses={data.postreqs}
+            />
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 }
