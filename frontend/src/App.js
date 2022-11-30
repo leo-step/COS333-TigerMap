@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import CurrentCourse from "./components/CurrentCourse";
 import Select from "react-select";
 import logo from "./images/logo.png";
+import Tracks from "./components/Tracks";
 
 function App() {
   const [response, setResponse] = useState([]);
@@ -83,7 +84,10 @@ function App() {
           </Col>
         </Row>
       )}
+         <Tracks> </Tracks>
     </Container>
+
+
   );
 }
 

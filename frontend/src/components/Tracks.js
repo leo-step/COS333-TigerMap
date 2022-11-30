@@ -1,3 +1,9 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Select from "react-select";
 
 
 function Tracks() {
@@ -10,7 +16,7 @@ function Tracks() {
     useEffect(() => {
       if (query) {
         axios
-          .get("/search", { params: { query: query } })
+          .get("http://127.0.0.1:5000/search", { params: { query: query } })
           .then((response) => {
             let result = response.data;
             for (let i = 0; i < result.length; i++) {
@@ -26,18 +32,26 @@ function Tracks() {
     useEffect(() => {
         if (courseId) {
           axios
-            .get("/api", { params: { course_id: courseId } })
+            .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
             .then((response) => {
-              setCourses(...courses, response.data)
-            });
+
+              setCourses([...courses, response.data])
+
+            } ) ;
         }
       }, [courseId]);
+
+
+    useEffect(() => {
+        console.log(courses)
+      }, [courses]);
+
   
     return (
       <Container fluid style={{maxWidth: "1600px"}}>
         <Row className="justify-content-center">
           <div style={{ maxWidth: "500px" }}>
-            <img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>
+            {/*<img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>*/}
             <Select
               onInputChange={(val) => setQuery(val)}
               onChange={(event) => {
@@ -49,6 +63,15 @@ function Tracks() {
             />
           </div>
         </Row>
+
+          <div>
+      {courses.map((course, index) => (
+        <p  key={index}> {course.long_title} </p>
+      ))}
+    </div>
+
+
+
       </Container>
     );
   }
