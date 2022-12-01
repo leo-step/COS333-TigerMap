@@ -4,6 +4,7 @@ from flask_cors import CORS # comment this on deployment
 from collections import defaultdict
 import pymongo
 import os
+import json
 
 load_dotenv()
 
@@ -52,5 +53,20 @@ def search():
         { "$limit": 5 }
     ]))
     return jsonify(results)
+
+@app.route("/createtrack", methods = ["POST"])
+def create_tracks():
+    print(request.form.get("courses"))
+    data = json.loads(request.form.get("courses"))
+    print(type(data))
+
+    print(data)
+
+
+    # client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    # db = client.tracks
+    # db.details.insert_one(data)
+    return "data"
+
 if __name__ == "__main__":
     app.run()

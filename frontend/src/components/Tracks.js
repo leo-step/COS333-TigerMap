@@ -6,9 +6,10 @@ import Row from "react-bootstrap/Row";
 import Select from "react-select";
 
 
-function Tracks() {
+
+function Tracks(props) {
     const [response, setResponse] = useState([]);
-    const [courses, setCourses] = useState([]);
+
     const [courseId, setCourseId] = useState(null);
     const [query, setQuery] = useState(null);
     const [data, setData] = useState(null);
@@ -35,7 +36,7 @@ function Tracks() {
             .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
             .then((response) => {
 
-              setCourses([...courses, response.data])
+              props.setCourses([...props.courses, response.data])
 
             } ) ;
         }
@@ -43,14 +44,14 @@ function Tracks() {
 
 
     useEffect(() => {
-        console.log(courses)
-      }, [courses]);
+        console.log(props.courses)
+      }, [props.courses]);
 
   
     return (
       <Container fluid style={{maxWidth: "1600px"}}>
         <Row className="justify-content-center">
-          <div style={{ maxWidth: "500px" }}>
+          <div style={{ maxWidth: "800px" , padding: '0px'}}>
             {/*<img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>*/}
             <Select
               onInputChange={(val) => setQuery(val)}
@@ -65,7 +66,7 @@ function Tracks() {
         </Row>
 
           <div>
-      {courses.map((course, index) => (
+      {props.courses.map((course, index) => (
         <p  key={index}> {course.long_title} </p>
       ))}
     </div>
