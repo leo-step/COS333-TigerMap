@@ -67,5 +67,18 @@ def create_tracks():
     return {"title": title, "emoji": emoji, "courses": courses}
 
 
+@app.route("/tracks")
+def get_tracks():
+    fields = {"title": 1, "emoji": 1}
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    data = list(db.tracks.find({}, fields))
+    response = app.response_class(
+        response=json.dumps(data, default=str),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
 if __name__ == "__main__":
     app.run()

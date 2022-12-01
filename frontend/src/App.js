@@ -2,6 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "./components/Form";
 import Main from "./components/Main"
+import ViewTracks from "./components/ViewTracks";
 
 import {
   BrowserRouter as Router,
@@ -16,6 +17,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/createtrack" element={<Form />} />
+          <Route path="/tracks" element={<ViewTracks />} />
           <Route path="/" element={<Main />} />
         </Routes>
       </div>
