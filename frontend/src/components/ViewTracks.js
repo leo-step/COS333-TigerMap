@@ -1,6 +1,9 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 import TrackButton from "./TrackButton"
+import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
 function ViewTracks() {
     const [tracks, setTracks] = useState([])
@@ -16,10 +19,16 @@ function ViewTracks() {
         });
     }, [])
 
-    return <div>
-        {tracks.map((track, index) =>
-            <TrackButton track={track} color={colors[index % colors.length]}/>)}
-    </div>
+    return <Container fluid style={{maxWidth: "800px"}}>
+        <Row>
+            {tracks.map((track, index) =>
+                <Col>
+                    <TrackButton track={track} color={colors[index % colors.length]} />
+                </Col>
+            )
+            }
+        </Row>
+    </Container>
 }
 
 export default ViewTracks;
