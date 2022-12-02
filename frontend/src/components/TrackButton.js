@@ -11,6 +11,9 @@ function TrackButton(props) {
         backgroundColor: props.color,
         width: "100%",
         height: "100%",
+        minWidth: "100px",
+        minHeight: "100px",
+        maxWidth: "300px"
       }}
       onClick={() => {
         navigate(props.url);

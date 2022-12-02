@@ -18,8 +18,8 @@ function Form() {
         "courses": event.target.elements.courses.value
     };
 
-    axios.post("http://127.0.0.1:5000/createtrack", data).then(() => {
-        navigate("/tracks");
+    axios.post("http://127.0.0.1:5000/createtrack", data).then((response) => {
+        navigate("/track/" + response.data.id);
     });
   };
   return (

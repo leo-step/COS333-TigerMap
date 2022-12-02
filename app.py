@@ -63,8 +63,8 @@ def create_tracks():
 
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
-    db.tracks.insert_one({"title": title, "emoji": emoji, "courses": courses})
-    return {"title": title, "emoji": emoji, "courses": courses}
+    result = db.tracks.insert_one({"title": title, "emoji": emoji, "courses": courses})
+    return jsonify({"id": str(result.inserted_id)})
 
 
 @app.route("/tracks")

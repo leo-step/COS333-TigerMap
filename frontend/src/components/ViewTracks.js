@@ -19,7 +19,7 @@ function ViewTracks() {
         });
     }, [])
 
-    return <Container fluid className="mt-2" style={{maxWidth: "800px"}}>
+    return <Container fluid className="mt-2" style={{maxWidth: "900px"}}>
         <Row>
             {tracks.map((track, index) =>
                 <Col className="m-1">
