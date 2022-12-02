@@ -22,7 +22,7 @@ function ViewTracks() {
     return <Container fluid className="mt-2" style={{maxWidth: "800px"}}>
         <Row>
             {tracks.map((track, index) =>
-                <Col>
+                <Col className="m-1">
                     <TrackButton track={track} color={colors[index % colors.length]} url={"/track/" + track._id} />
                 </Col>
             )
