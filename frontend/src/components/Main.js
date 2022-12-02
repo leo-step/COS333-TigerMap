@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import CurrentCourse from "./CurrentCourse";
 import Select from "react-select";
 import logo from "../images/logo.png";
-import Form from "./Form";
+import Navbar from "./Navbar";
 
 function Main() {
   const [response, setResponse] = useState([]);
@@ -43,6 +43,8 @@ function Main() {
   }, [courseId]);
 
   return (
+    <div>
+    <Navbar />
     <Container fluid style={{maxWidth: "1600px"}}>
       <Row className="justify-content-center">
         <div style={{ maxWidth: "500px" }}>
@@ -83,9 +85,8 @@ function Main() {
           </Col>
         </Row>
       )}
-         <Form></Form>
     </Container>
-
+    </div>
 
   );
 }

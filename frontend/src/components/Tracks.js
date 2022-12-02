@@ -61,7 +61,8 @@ function Tracks(props) {
               }}
               options={response}
               placeholder="Search"
-              className="m-2"
+              className="mb-2"
+              
             />
           </div>
         </Row>

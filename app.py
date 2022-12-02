@@ -57,9 +57,9 @@ def search():
 
 @app.route("/createtrack", methods = ["POST"])
 def create_tracks():
-    title = request.form.get("title")
-    emoji = request.form.get("emoji")
-    courses = json.loads(request.form.get("courses"))
+    title = request.json.get("title")
+    emoji = request.json.get("emoji")
+    courses = json.loads(request.json.get("courses"))
 
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
