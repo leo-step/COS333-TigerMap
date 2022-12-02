@@ -18,7 +18,7 @@ function Tracks(props) {
     useEffect(() => {
       if (query) {
         axios
-          .get("http://127.0.0.1:5000/search", { params: { query: query } })
+          .get("/search", { params: { query: query } })
           .then((response) => {
             let result = response.data;
             for (let i = 0; i < result.length; i++) {
@@ -34,7 +34,7 @@ function Tracks(props) {
     useEffect(() => {
         if (courseId) {
           axios
-            .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
+            .get("/api", { params: { course_id: courseId } })
             .then((response) => {
 
               props.setCourses([...props.courses, response.data])

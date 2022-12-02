@@ -12,7 +12,7 @@ function TrackDetails() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/trackdetails", { params: { id: params.id } })
+      .get("/trackdetails", { params: { id: params.id } })
       .then((response) => {
         setTrack(response.data);
       });

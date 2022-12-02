@@ -10,7 +10,7 @@ function BasicExample() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="/createtrack" style={{color: "white"}}>Create Track</Nav.Link>
+            <Nav.Link href="/create" style={{color: "white"}}>Create Track</Nav.Link>
             <Nav.Link href="/tracks" style={{color: "white"}}>Browse Tracks</Nav.Link>
           </Nav>
         </Navbar.Collapse>

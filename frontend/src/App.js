@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <div>
         <Routes>
-          <Route path="/createtrack" element={<Form />} />
+          <Route path="/create" element={<Form />} />
           <Route path="/tracks" element={<ViewTracks />} />
           <Route path="/track/:id" element={<TrackDetails />} />
           <Route path="/" element={<Main />} />

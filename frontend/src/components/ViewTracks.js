@@ -13,7 +13,7 @@ function ViewTracks() {
 
     useEffect(() => {
         axios
-        .get("http://127.0.0.1:5000/tracks")
+        .get("/gettracks")
         .then((response) => {
           setTracks(response.data);
         });
@@ -22,7 +22,7 @@ function ViewTracks() {
     return <Container fluid className="mt-2" style={{maxWidth: "900px"}}>
         <Row>
             {tracks.map((track, index) =>
-                <Col className="m-1">
+                <Col className="m-1 justify-content-center">
                     <TrackButton track={track} color={colors[index % colors.length]} url={"/track/" + track._id} />
                 </Col>
             )

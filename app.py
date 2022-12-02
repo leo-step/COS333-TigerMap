@@ -21,6 +21,10 @@ postreqs = defaultdict(list, db.graph.find_one({"_id": "postreq"}))
 def index():
     return app.send_static_file("index.html")
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
+
 @app.route("/api")
 def api():
     fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1}
@@ -67,7 +71,7 @@ def create_tracks():
     return jsonify({"id": str(result.inserted_id)})
 
 
-@app.route("/tracks")
+@app.route("/gettracks")
 def get_tracks():
     fields = {"title": 1, "emoji": 1}
     client = pymongo.MongoClient(os.getenv("DB_CONN"))

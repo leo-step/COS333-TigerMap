@@ -20,9 +20,17 @@ function Form() {
       courses: event.target.elements.courses.value,
     };
 
-    axios.post("http://127.0.0.1:5000/createtrack", data).then((response) => {
-      navigate("/track/" + response.data.id);
-    });
+    if (data.title !== "" && data.courses !== "[]") {
+        axios.post("/createtrack", data).then((response) => {
+            navigate("/track/" + response.data.id);
+        });
+    }
+    else if (data.title === "") {
+        alert("Please enter a title.");
+    }
+    else {
+        alert("Please choose at least one course.");
+    }
   };
   return (
     <Container fluid className="m-2">
