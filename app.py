@@ -5,6 +5,7 @@ from collections import defaultdict
 import pymongo
 import os
 import json
+from bson import ObjectId
 
 load_dotenv()
 
@@ -60,7 +61,6 @@ def create_tracks():
     emoji = request.form.get("emoji")
     courses = json.loads(request.form.get("courses"))
 
-
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
     db.tracks.insert_one({"title": title, "emoji": emoji, "courses": courses})
@@ -75,6 +75,19 @@ def get_tracks():
     data = list(db.tracks.find({}, fields))
     response = app.response_class(
         response=json.dumps(data, default=str),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
+@app.route("/trackdetails")
+def track_details():
+    track_id = request.args.get("id")
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    track = db.tracks.find_one({"_id": ObjectId(track_id)})
+    response = app.response_class(
+        response=json.dumps(track, default=str),
         status=200,
         mimetype='application/json'
     )

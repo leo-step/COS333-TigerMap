@@ -23,7 +23,7 @@ function ViewTracks() {
         <Row>
             {tracks.map((track, index) =>
                 <Col>
-                    <TrackButton track={track} color={colors[index % colors.length]} />
+                    <TrackButton track={track} color={colors[index % colors.length]} url={"/track/" + track._id} />
                 </Col>
             )
             }
