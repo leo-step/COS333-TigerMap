@@ -43,8 +43,6 @@ function Main() {
   }, [courseId]);
 
   return (
-    <div>
-    <Navbar />
     <Container fluid style={{maxWidth: "1600px"}}>
       <Row className="justify-content-center">
         <div style={{ maxWidth: "500px" }}>
@@ -86,7 +84,6 @@ function Main() {
         </Row>
       )}
     </Container>
-    </div>
 
   );
 }

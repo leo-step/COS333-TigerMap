@@ -4,12 +4,14 @@ import Form from "./components/Form";
 import Main from "./components/Main";
 import ViewTracks from "./components/ViewTracks";
 import TrackDetails from "./components/TrackDetails";
+import Navbar from "./components/Navbar";
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <div>
         <Routes>
           <Route path="/createtrack" element={<Form />} />

@@ -23,7 +23,7 @@ function Form() {
     });
   };
   return (
-    <Container fluid>
+    <Container fluid className="m-2">
       <Row className="justify-content-center">
         <form
           onSubmit={handleSubmit}
