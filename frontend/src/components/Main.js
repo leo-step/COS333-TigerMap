@@ -54,16 +54,18 @@ function Main() {
         </div>
       </Row>
       <Row className="justify-content-center">
-        <div style={{ maxWidth: "500px" }}>
-          <Select
-            onInputChange={(val) => setQuery(val)}
-            onChange={(event) => {
-              setCourseId(event._id);
-            }}
-            options={response}
-            placeholder="Search"
-            className="m-2"
-          />
+        <div style={{ maxWidth: "600px" }}>
+          <h3>
+            <Select
+              onInputChange={(val) => setQuery(val)}
+              onChange={(event) => {
+                setCourseId(event._id);
+              }}
+              options={response}
+              placeholder="Search"
+              className="m-2"
+            />
+          </h3>
         </div>
       </Row>
       <Row>
@@ -94,14 +96,14 @@ function Main() {
             <Table
               header={"Prerequsites"}
               setCourseId={setCourseId}
-              courses={[]}
+              placeholder
             />
           </Col>
           <Col>
             <Table
               header={"Postrequsites"}
               setCourseId={setCourseId}
-              courses={[]}
+              placeholder
             />
           </Col>
         </Row>

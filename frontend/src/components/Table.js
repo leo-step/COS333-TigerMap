@@ -1,8 +1,6 @@
 import Table from "react-bootstrap/Table";
 
 function createTable(props) {
-  //    const testData = [{code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}, {code: "COS 126", title: "Intro to CS", area: "QR"}]
-
   return (
     <div
       style={{
@@ -13,24 +11,30 @@ function createTable(props) {
       className="m-4 myTable"
     >
       <h2 style={{ textAlign: "center" }}>{props.header}</h2>
-      <Table borderless hover>
-        <tbody>
-          {props.courses.map(function (course) {
-            return (
-              <tr
-                key={course._id}
-                onClick={() => {
-                  props.setCourseId(course._id);
-                }}
-              >
-                <td>{course.crosslistings}</td>
-                <td>{course.long_title}</td>
-                <td>{course.distribution_area_short}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      {(props.placeholder && (
+        <div style={{ textAlign: "center" }}>
+          <p>Click a course to view where it leads…</p>
+        </div>
+      )) || (
+        <Table borderless hover>
+          <tbody>
+            {props.courses.map(function (course) {
+              return (
+                <tr
+                  key={course._id}
+                  onClick={() => {
+                    props.setCourseId(course._id);
+                  }}
+                >
+                  <td>{course.crosslistings}</td>
+                  <td>{course.long_title}</td>
+                  <td>{course.distribution_area_short}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 }
