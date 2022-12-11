@@ -31,7 +31,7 @@ function ViewTracks() {
     <Container fluid className="mt-2" style={{ maxWidth: "900px" }}>
       <Row>
         <div style={{ textAlign: "center" }}>
-          <h2>Browse Course Tracks</h2>
+          <h1>Browse Course Tracks</h1>
           <p style={{fontSize: "24px"}}>
             Below are user created course tracks. Click any track to view the
             courses in it. To create your own track ad share it with others,

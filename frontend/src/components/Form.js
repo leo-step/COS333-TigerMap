@@ -21,26 +21,29 @@ function Form() {
     };
 
     if (data.title !== "" && data.courses !== "[]") {
-        axios.post("/createtrack", data).then((response) => {
-            navigate("/track/" + response.data.id);
-        });
-    }
-    else if (data.title === "") {
-        alert("Please enter a title.");
-    }
-    else {
-        alert("Please choose at least one course.");
+      axios.post("/createtrack", data).then((response) => {
+        navigate("/track/" + response.data.id);
+      });
+    } else if (data.title === "") {
+      alert("Please enter a title.");
+    } else {
+      alert("Please choose at least one course.");
     }
   };
   return (
     <Container fluid className="m-2">
       <Row className="justify-content-center">
+        <div style={{ textAlign: "center", maxWidth: "800px"  }}>
+            <h1>Create a Course Track</h1>
+            <p style={{ fontSize: "24px" }}>
+              Make a course track by choosing a title, a suitable emoji, and a
+              set of courses. We will map out all your prerequisites.{" "}
+            </p>
+        </div>
+      </Row>
+      <Row className="justify-content-center">
         <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
-          <div style={{"textAlign": "center"}}>
-            <h2>Create a Course Track</h2>
-            <p>Make a course track by choosing a title, a suitable emoji, and a set of courses. We will map out all your prerequisites. </p>
-          </div>
-          <div className="form-group" style={{paddingBottom: "10px"}}>
+          <div className="form-group" style={{ paddingBottom: "10px" }}>
             <label htmlFor="title">Title</label>
             <input
               className="form-control"
@@ -49,7 +52,7 @@ function Form() {
               placeholder="Enter track title"
             />
           </div>
-          <div className="form-group" style={{paddingBottom: "10px"}}>
+          <div className="form-group" style={{ paddingBottom: "10px" }}>
             <label htmlFor="emoji">Emoji</label>
             <h1>{emoji}</h1>
             <EmojiPicker
@@ -58,11 +61,18 @@ function Form() {
               autoFocusSearch={false}
               suggestedEmojisMode={"recent"}
               onEmojiClick={(event) => setEmoji(event.emoji)}
-              previewConfig={{showPreview: false}}
+              previewConfig={{ showPreview: false }}
             />
-            <input hidden readOnly className="form-control" id="emoji" name="emoji" value={emoji}/>
+            <input
+              hidden
+              readOnly
+              className="form-control"
+              id="emoji"
+              name="emoji"
+              value={emoji}
+            />
           </div>
-          <div className="form-group" style={{paddingBottom: "10px"}}>
+          <div className="form-group" style={{ paddingBottom: "10px" }}>
             <label>Add Courses</label>
 
             <input
