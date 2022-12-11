@@ -13,14 +13,17 @@ function BasicExample() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link
+                href="/about"
+              >
+              About
+            </Nav.Link>
+            <Nav.Link
               href="/create"
-              style={{ color: "white", fontSize: "20px" }}
             >
               Create Track
             </Nav.Link>
             <Nav.Link
               href="/tracks"
-              style={{ color: "white", fontSize: "20px" }}
             >
               Browse Tracks
             </Nav.Link>
