@@ -13,26 +13,28 @@ function Main() {
   const [response, setResponse] = useState([]);
   const [courseId, setCourseId] = useState(null);
   const [query, setQuery] = useState(null);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
 
   useEffect(() => {
     if (query) {
-      axios.get("/search", { params: { query: query } }).then((response) => {
-        let result = response.data;
-        for (let i = 0; i < result.length; i++) {
-          result[i].label =
-            result[i].crosslistings + " - " + result[i].long_title;
-          result[i].value = result[i]._id;
-        }
-        setResponse(result);
-      });
+      axios
+        .get("http://localhost:5000/search", { params: { query: query } })
+        .then((response) => {
+          let result = response.data;
+          for (let i = 0; i < result.length; i++) {
+            result[i].label =
+              result[i].crosslistings + " - " + result[i].long_title;
+            result[i].value = result[i]._id;
+          }
+          setResponse(result);
+        });
     }
   }, [query]);
 
   useEffect(() => {
     if (courseId) {
       axios
-        .get("/api", { params: { course_id: courseId } })
+        .get("http://localhost:5000/api", { params: { course_id: courseId } })
         .then((response) => {
           setData(response.data);
         });
@@ -42,36 +44,34 @@ function Main() {
   return (
     <Container fluid style={{ maxWidth: "1600px" }}>
       <Row className="justify-content-center">
-        <div style={{textAlign: "center"}}>
-          <img src={logo} alt="TigerMap" style={{ maxWidth: "500px"}} />
-          <div>
-            <p style={{ fontSize: "24px", paddingBottom: "10px",  maxWidth: "800px", textAlign: "center" }}>
-              Course selection can feel like a treasure hunt with no
-              destination. TigerMap helps you find the way to the courses you
-              want to take in the future.
-            </p>
-          </div>
-          <div style={{ maxWidth: "500px" }}>
-            <Select
-              onInputChange={(val) => setQuery(val)}
-              onChange={(event) => {
-                setCourseId(event._id);
-              }}
-              options={response}
-              placeholder="Search"
-              className="m-2"
-            />
-          </div>
+        <div style={{ textAlign: "center", maxWidth: "800px" }}>
+          <img src={logo} alt="TigerMap" style={{ maxWidth: "500px " }} />
+          <p style={{ fontSize: "24px" }}>
+            Course selection can feel like a treasure hunt with no destination.
+            TigerMap helps you find the way to the courses you want to take in
+            the future. 🗺️{" "}
+          </p>
         </div>
       </Row>
-      {data && (
-        <Row>
-          <Col>
-            <CurrentCourse details={data} />
-          </Col>
-        </Row>
-      )}
-      {data && (
+      <Row className="justify-content-center">
+        <div style={{ maxWidth: "500px" }}>
+          <Select
+            onInputChange={(val) => setQuery(val)}
+            onChange={(event) => {
+              setCourseId(event._id);
+            }}
+            options={response}
+            placeholder="Search"
+            className="m-2"
+          />
+        </div>
+      </Row>
+      <Row>
+        <Col>
+          <CurrentCourse details={data} />
+        </Col>
+      </Row>
+      {(data && (
         <Row>
           <Col>
             <Table
@@ -85,6 +85,23 @@ function Main() {
               header={"Postrequsites"}
               setCourseId={setCourseId}
               courses={data.postreqs}
+            />
+          </Col>
+        </Row>
+      )) || (
+        <Row>
+          <Col>
+            <Table
+              header={"Prerequsites"}
+              setCourseId={setCourseId}
+              courses={[]}
+            />
+          </Col>
+          <Col>
+            <Table
+              header={"Postrequsites"}
+              setCourseId={setCourseId}
+              courses={[]}
             />
           </Col>
         </Row>
