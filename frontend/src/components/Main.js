@@ -17,17 +17,15 @@ function Main() {
 
   useEffect(() => {
     if (query) {
-      axios
-        .get("/search", { params: { query: query } })
-        .then((response) => {
-          let result = response.data;
-          for (let i = 0; i < result.length; i++) {
-            result[i].label =
-              result[i].crosslistings + " - " + result[i].long_title;
-            result[i].value = result[i]._id;
-          }
-          setResponse(result);
-        });
+      axios.get("/search", { params: { query: query } }).then((response) => {
+        let result = response.data;
+        for (let i = 0; i < result.length; i++) {
+          result[i].label =
+            result[i].crosslistings + " - " + result[i].long_title;
+          result[i].value = result[i]._id;
+        }
+        setResponse(result);
+      });
     }
   }, [query]);
 
@@ -42,19 +40,28 @@ function Main() {
   }, [courseId]);
 
   return (
-    <Container fluid style={{maxWidth: "1600px"}}>
+    <Container fluid style={{ maxWidth: "1600px" }}>
       <Row className="justify-content-center">
-        <div style={{ maxWidth: "500px" }}>
-          <img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>
-          <Select
-            onInputChange={(val) => setQuery(val)}
-            onChange={(event) => {
-              setCourseId(event._id);
-            }}
-            options={response}
-            placeholder="Search"
-            className="m-2"
-          />
+        <div style={{textAlign: "center"}}>
+          <img src={logo} alt="TigerMap" style={{ maxWidth: "500px"}} />
+          <div>
+            <p style={{ fontSize: "24px", paddingBottom: "10px",  maxWidth: "800px", textAlign: "center" }}>
+              Course selection can feel like a treasure hunt with no
+              destination. TigerMap helps you find the way to the courses you
+              want to take in the future.
+            </p>
+          </div>
+          <div style={{ maxWidth: "500px" }}>
+            <Select
+              onInputChange={(val) => setQuery(val)}
+              onChange={(event) => {
+                setCourseId(event._id);
+              }}
+              options={response}
+              placeholder="Search"
+              className="m-2"
+            />
+          </div>
         </div>
       </Row>
       {data && (
@@ -83,7 +90,6 @@ function Main() {
         </Row>
       )}
     </Container>
-
   );
 }
 
