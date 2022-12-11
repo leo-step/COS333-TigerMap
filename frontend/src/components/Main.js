@@ -18,7 +18,7 @@ function Main() {
   useEffect(() => {
     if (query) {
       axios
-        .get("http://localhost:5000/search", { params: { query: query } })
+        .get("http://127.0.0.1:5000/search", { params: { query: query } })
         .then((response) => {
           let result = response.data;
           for (let i = 0; i < result.length; i++) {
@@ -34,7 +34,7 @@ function Main() {
   useEffect(() => {
     if (courseId) {
       axios
-        .get("http://localhost:5000/api", { params: { course_id: courseId } })
+        .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
         .then((response) => {
           setData(response.data);
         });

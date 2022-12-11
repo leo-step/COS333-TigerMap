@@ -6,12 +6,24 @@ function BasicExample() {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">Home</Navbar.Brand>
+        <Navbar.Brand href="/" style={{ fontSize: "32px" }}>
+          Home
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="/create" style={{color: "white"}}>Create Track</Nav.Link>
-            <Nav.Link href="/tracks" style={{color: "white"}}>Browse Tracks</Nav.Link>
+            <Nav.Link
+              href="/create"
+              style={{ color: "white", fontSize: "20px" }}
+            >
+              Create Track
+            </Nav.Link>
+            <Nav.Link
+              href="/tracks"
+              style={{ color: "white", fontSize: "20px" }}
+            >
+              Browse Tracks
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

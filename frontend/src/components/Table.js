@@ -13,7 +13,7 @@ function createTable(props) {
       <h2 style={{ textAlign: "center" }}>{props.header}</h2>
       {(props.placeholder && (
         <div style={{ textAlign: "center" }}>
-          <p>Click a course to view where it leads…</p>
+          <i>Click a course to view where it leads…</i>
         </div>
       )) || (
         <Table borderless hover>
