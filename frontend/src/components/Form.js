@@ -36,6 +36,10 @@ function Form() {
     <Container fluid className="m-2">
       <Row className="justify-content-center">
         <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
+          <div style={{"textAlign": "center"}}>
+            <h2>Create a Course Track</h2>
+            <p>Make a course track by choosing a title, a suitable emoji, and a set of courses. We will map out all your prerequisites. </p>
+          </div>
           <div className="form-group" style={{paddingBottom: "10px"}}>
             <label htmlFor="title">Title</label>
             <input
@@ -50,10 +54,11 @@ function Form() {
             <h1>{emoji}</h1>
             <EmojiPicker
               width="100%"
-              height="400px"
+              height="350px"
               autoFocusSearch={false}
               suggestedEmojisMode={"recent"}
               onEmojiClick={(event) => setEmoji(event.emoji)}
+              previewConfig={{showPreview: false}}
             />
             <input hidden readOnly className="form-control" id="emoji" name="emoji" value={emoji}/>
           </div>
