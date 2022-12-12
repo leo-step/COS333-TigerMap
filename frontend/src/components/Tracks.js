@@ -14,23 +14,23 @@ function Tracks(props) {
       value: "ECO100 - Introduction to Microeconomics",
       label: "ECO 100 - Introduction to Microeconomics",
     },
-    { _id: "004140", value: "004140", label: "MAT 104 - Calculus II" },
+    { _id: "001388", value: "ECO300 - Microeconomic Theory", label: "ECO 300 - Microeconomic Theory" },
     {
-      _id: "002054",
-      value: "COS226 - Algorithms and Data Structures",
-      label: "COS 226 - Algorithms and Data Structures",
+      _id: "001391",
+      value: "ECO310 - Microeconomic Theory: A Mathematical Approach",
+      label: "ECO 310 - Microeconomic Theory: A Mathematical Approach",
     },
     {
-      _id: "013781",
+      _id: "001397",
       value:
-        "POL345 SOC305 SPI211 - Introduction to Quantitative Social Science",
+        "ECO321  - Firm Competition and Strategy",
       label:
-        "POL 345 / SOC 305 / SPI 211 - Introduction to Quantitative Social Science",
+        "ECO 321 - Firm Competition and Strategy",
     },
     {
-      _id: "000880",
-      value: "MOL345 CHM345 - Biochemistry",
-      label: "MOL 345 / CHM 345 - Biochemistry",
+      _id: "010527",
+      value: "ECO332 GHP332 - Economics of Health and Health Care",
+      label: "ECO 332 / GHP 332 - Economics of Health and Health Care",
     },
   ]);
   const [courseId, setCourseId] = useState(null);
@@ -85,7 +85,7 @@ function Tracks(props) {
                 setCourseId(event._id);
               }}
               options={response}
-              placeholder="Search for a class by entering a name or keyword"
+              placeholder="Search for a class you are interested in"
               className="mb-2"
               value={query}
               noOptionsMessage={() =>
