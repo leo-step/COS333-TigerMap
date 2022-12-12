@@ -13,24 +13,25 @@ function Main() {
   const [response, setResponse] = useState([
     {
       _id: "001381",
-      value: "ECO100",
+      value: "ECO100 - Introduction to Microeconomics",
       label: "ECO 100 - Introduction to Microeconomics",
     },
     { _id: "004140", value: "004140", label: "MAT 104 - Calculus II" },
     {
       _id: "002054",
-      value: "COS226",
+      value: "COS226 - Algorithms and Data Structures",
       label: "COS 226 - Algorithms and Data Structures",
     },
     {
       _id: "013781",
-      value: "SOC305POL345SPI211",
+      value:
+        "POL345 SOC305 SPI211 - Introduction to Quantitative Social Science",
       label:
         "POL 345 / SOC 305 / SPI 211 - Introduction to Quantitative Social Science",
     },
     {
       _id: "000880",
-      value: "MOL345CHM345",
+      value: "MOL345 CHM345 - Biochemistry",
       label: "MOL 345 / CHM 345 - Biochemistry",
     },
   ]);
@@ -47,7 +48,10 @@ function Main() {
           for (let i = 0; i < result.length; i++) {
             result[i].label =
               result[i].crosslistings + " - " + result[i].long_title;
-            result[i].value = result[i].crosslistings.replaceAll(" ", "").replaceAll("/", "");
+            result[i].value =
+              result[i].crosslistings.replaceAll(" ", "").replaceAll("/", " ") +
+              " - " +
+              result[i].long_title;
           }
           setResponse(result);
         });
@@ -78,10 +82,10 @@ function Main() {
       </Row>
       <Row className="justify-content-center">
         <div style={{ maxWidth: "720px" }}>
-          <p style={{fontSize: "20px"}} onClick={() => setQuery(null)}>
+          <p style={{ fontSize: "20px" }} onClick={() => setQuery(null)}>
             <Select
               onInputChange={(val) => {
-                setQuery(val)
+                setQuery(val);
               }}
               onChange={(event) => {
                 setCourseId(event._id);
@@ -90,7 +94,9 @@ function Main() {
               placeholder="Search for a class by entering a name or keyword"
               className="m-2"
               value={query}
-              noOptionsMessage={() => "No results found. Try adding a space if you have a course code."}
+              noOptionsMessage={() =>
+                "No results found. Try adding a space if you have a course code."
+              }
             />
           </p>
         </div>
