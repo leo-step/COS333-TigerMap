@@ -1,7 +1,6 @@
 import Button from "react-bootstrap/Button";
 
 function CurrentCourse(props) {
-  console.log(props.details);
   if (props.details == null) {
     return (
       <div
@@ -17,8 +16,7 @@ function CurrentCourse(props) {
         <p
           style={{ textAlign: "center", fontSize: "24px", marginBottom: "0px" }}
         >
-          Enter a course name or keyword into the search bar to see
-          prerequisites and postrequisites.{" "}
+          The course details will appear here.
         </p>
       </div>
     );

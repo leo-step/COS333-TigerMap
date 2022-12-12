@@ -18,6 +18,16 @@ function TrackDetails() {
       });
   }, [params]);
 
+  useEffect(() => {
+    if (track) {
+      axios
+      .post("http://127.0.0.1:5000/graph", {course_ids: track.courses.map(course => course._id)})
+      .then((response) => {
+        console.log(response.data);
+      });
+    }
+  }, [track])
+
   return (
     <Container fluid style={{ maxWidth: "1200px" }}>
       <Row className="justify-content-center">

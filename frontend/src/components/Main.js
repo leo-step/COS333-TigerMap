@@ -62,7 +62,7 @@ function Main() {
                 setCourseId(event._id);
               }}
               options={response}
-              placeholder="Search"
+              placeholder="Enter a course name or keyword"
               className="m-2"
             />
           </h3>
@@ -101,7 +101,7 @@ function Main() {
           </Col>
           <Col>
             <Table
-              header={"Postrequsites"}
+              header={"This course leads to..."}
               setCourseId={setCourseId}
               placeholder
             />

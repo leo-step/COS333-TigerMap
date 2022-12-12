@@ -121,9 +121,8 @@ def get_graph_data():
             adj.append({"source": source, "target": target})
 
     course_data = list(db.details.find({"_id": {"$in" : list(graph.keys())}}, fields))
-    for data in course_data:
-        data["id"] = data["_id"]
-        del data["_id"]
+    for i, data in enumerate(course_data):
+        course_data[i] = {"id": data["_id"], "code": data["subject"] + data["catnum"]}
 
     return jsonify({"links": adj, "nodes": course_data})
 
