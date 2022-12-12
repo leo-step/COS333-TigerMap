@@ -29,16 +29,12 @@ function Tracks(props) {
   }, [query]);
 
   useEffect(() => {
-    console.log(props.courses.map((course) => course._id));
-    console.log(courseId);
     if (
       courseId &&
       !props.courses.map((course) => course._id).includes(courseId)
     ) {
       if (props.courses.length > 10) {
         alert("You can only select a maximum of 10 courses.");
-      } else if (props.courses.length < 3) {
-        alert("You need to select a minimum of 3 courses");
       } else {
         axios
           .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
@@ -52,7 +48,7 @@ function Tracks(props) {
   return (
     <Container fluid style={{ maxWidth: "1600px" }}>
       <Row className="justify-content-center">
-        <div style={{ maxWidth: "800px", padding: "0px" }}>
+        <div style={{ maxWidth: "800px", padding: "0px" }} onClick={() => setQuery(null)}>
           {/*<img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>*/}
           <Select
             onInputChange={(val) => setQuery(val)}
@@ -62,6 +58,7 @@ function Tracks(props) {
             options={response}
             placeholder="Search for a class by entering a name or keyword"
             className="mb-2"
+            value={query}
           />
         </div>
       </Row>

@@ -20,12 +20,14 @@ function Form() {
       courses: event.target.elements.courses.value,
     };
 
-    if (data.title !== "" && data.courses !== "[]") {
+    if (data.title !== "" && data.courses !== "[]" && courses.length >= 3) {
       axios.post("http://127.0.0.1:5000/createtrack", data).then((response) => {
         navigate("/track/" + response.data.id);
       });
     } else if (data.title === "") {
       alert("Please enter a title.");
+    } else if (courses.length < 3) {
+      alert("You need to select a minimum of 3 courses");
     } else {
       alert("Please choose at least one course.");
     }

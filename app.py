@@ -45,10 +45,22 @@ def search():
         {
             "$search": {
             "index": "details",
-            "text": {
-                    "query": query,
-                    "path": ["crosslistings", "long_title"]
-                }
+            "compound": {
+                "should": [
+                    {
+                        "autocomplete": {
+                            "query": query,
+                            "path": "long_title"
+                        },
+                    },
+                    {
+                        "autocomplete": {
+                            "query": query,
+                            "path": "crosslistings"
+                        },
+                    },
+                ],
+            }
             }
         },
         { "$project": {
@@ -58,6 +70,20 @@ def search():
         { "$limit": 5 }
     ]))
     return jsonify(results)
+
+    '''
+      $search: {
+    "index": "<index name>", // optional, defaults to "default"
+    "autocomplete": {
+      "query": "<search-string>",
+      "path": "<field-to-search>",
+      "tokenOrder": "any|sequential",
+      "fuzzy": <options>,
+      "score": <options>
+    }
+  }
+    
+    '''
 
 @app.route("/createtrack", methods = ["POST"])
 def create_tracks():
