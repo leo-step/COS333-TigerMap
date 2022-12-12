@@ -16,3 +16,6 @@ body {
     color: white !important;
     font-size: 20px !important;
 }
+.trash:hover {
+    color: red;
+}

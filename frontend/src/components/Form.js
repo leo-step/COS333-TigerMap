@@ -57,7 +57,7 @@ function Form() {
             <h1>{emoji}</h1>
             <EmojiPicker
               width="100%"
-              height="350px"
+              height="300px"
               autoFocusSearch={false}
               suggestedEmojisMode={"recent"}
               onEmojiClick={(event) => setEmoji(event.emoji)}
