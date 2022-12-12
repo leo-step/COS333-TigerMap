@@ -19,7 +19,7 @@ function createTable(props) {
             paddingBottom: "10px",
           }}
         >
-          <i>
+          <i className={props.colorPlaceholder && "orange-no-hover"}>
             {props.placeholder}{" "}
             {props.showLinks && (
               <span>

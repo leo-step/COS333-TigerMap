@@ -106,9 +106,10 @@ function Main() {
               courses={data.prereqs}
               placeholder={
                 (data.prereqs.length > 0 &&
-                  "Click a course to view its details") ||
+                  "Click a course to view its details.") ||
                 "This course has no prerequisites."
               }
+              colorPlaceholder
             />
           </Col>
           <Col>
@@ -118,9 +119,10 @@ function Main() {
               courses={data.postreqs}
               placeholder={
                 (data.postreqs.length > 0 &&
-                  "Click a course to view its details") ||
+                  "Click a course to view its details.") ||
                 "This course doesn't lead to any classes."
               }
+              colorPlaceholder
             />
           </Col>
         </Row>
@@ -130,14 +132,16 @@ function Main() {
             <Table
               header={"Prerequsites"}
               setCourseId={setCourseId}
-              placeholder={"Click a course to view its details"}
+              placeholder={"Search for a course to view its prerequisites."}
+              colorPlaceholder
             />
           </Col>
           <Col>
             <Table
               header={"This course leads to..."}
               setCourseId={setCourseId}
-              placeholder={"Click a course to view its details"}
+              placeholder={"Search for a course to see what it leads to."}
+              colorPlaceholder
             />
           </Col>
         </Row>

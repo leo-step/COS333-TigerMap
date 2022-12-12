@@ -40,6 +40,10 @@ body {
     color: #DD6300 !important;
 }
 
+.orange-no-hover {
+    color: #FD7D23 !important;
+}
+
 .btn-green,
 .btn-green:active,
 .btn-green:visited,
