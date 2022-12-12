@@ -5,16 +5,20 @@ import axios from "axios";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import graph from "../images/graph.png";
+import { useNavigate } from "react-router-dom";
 
 function TrackDetails() {
   const params = useParams();
   const [track, setTrack] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get("http://127.0.0.1:5000/trackdetails", { params: { id: params.id } })
       .then((response) => {
         setTrack(response.data);
+      }).catch(() => {
+        navigate("/notfound");
       });
   }, [params]);
 

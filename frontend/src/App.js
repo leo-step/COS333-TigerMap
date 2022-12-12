@@ -6,6 +6,7 @@ import ViewTracks from "./components/ViewTracks";
 import TrackDetails from "./components/TrackDetails";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
+import NotFound from "./components/NotFound";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/tracks" element={<ViewTracks />} />
           <Route path="/track/:id" element={<TrackDetails />} />
           <Route path="/" element={<Main />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
