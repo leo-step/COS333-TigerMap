@@ -47,7 +47,7 @@ function createTable(props) {
                   onClick={() => {
                     props.setCourseId(course._id);
                   }}
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px"}}
                 >
                   <td>{course.crosslistings}</td>
                   <td>{course.long_title}</td>
