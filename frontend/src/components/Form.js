@@ -33,14 +33,15 @@ function Form() {
     }
   };
   return (
-    <Container fluid className="m-2" style={{minHeight: "900px"}}>
+    <Container fluid className="m-2" style={{ minHeight: "950px" }}>
       <Row className="justify-content-center">
-        <div style={{ textAlign: "center", maxWidth: "750px"}}>
+        <div style={{ textAlign: "center", maxWidth: "750px" }}>
           <h1>Create a Course Track</h1>
           <p style={{ fontSize: "24px" }}>
-            Here, you can make a course track for your interest area that will
+            A course track is a group of courses that aligns with a student's
+            interest area. You can make a track for your interest area that will
             be shared with other students. Choose a title, emoji, and a set of
-            courses. We will map out all your prerequisites.{" "}
+            courses, and we will map out all your prerequisites.{" "}
           </p>
         </div>
       </Row>

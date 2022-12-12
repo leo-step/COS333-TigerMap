@@ -65,3 +65,10 @@ body {
     border-color: black !important;
     border-width: 2px !important;
 }
+.btn-main {
+    margin: 3px !important;
+}
+
+.title {
+    margin-right: 12px !important;
+}
