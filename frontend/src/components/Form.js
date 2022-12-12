@@ -44,7 +44,7 @@ function Form() {
       <Row className="justify-content-center">
         <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title" style={{fontSize: "20px"}}>Title</label>
             <input
               className="form-control"
               id="title"
@@ -54,7 +54,7 @@ function Form() {
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label htmlFor="emoji">Emoji (Optional)</label>
+            <label htmlFor="emoji" style={{fontSize: "20px"}}>Emoji (Optional)</label>
             <h1>{emoji}</h1>
             <EmojiPicker
               width="100%"
@@ -74,7 +74,7 @@ function Form() {
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label>Add Courses</label>
+            <label style={{fontSize: "20px", paddingBottom: "5px"}}>Add Courses</label>
 
             <input
               hidden
@@ -88,7 +88,7 @@ function Form() {
               {" "}
             </Tracks>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" style={{fontSize: "20px"}}>
             Make Track
           </button>
         </form>
