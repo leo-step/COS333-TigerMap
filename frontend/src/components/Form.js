@@ -33,18 +33,21 @@ function Form() {
   return (
     <Container fluid className="m-2">
       <Row className="justify-content-center">
-        <div style={{ textAlign: "center", maxWidth: "800px"  }}>
-            <h1>Create a Course Track</h1>
-            <p style={{ fontSize: "24px" }}>
-              Make a course track by choosing a title, a suitable emoji, and a
-              set of courses. We will map out all your prerequisites.{" "}
-            </p>
+        <div style={{ textAlign: "center", maxWidth: "750px" }}>
+          <h1>Create a Course Track</h1>
+          <p style={{ fontSize: "24px" }}>
+            Here, you can make a course track for your interest area that will
+            be shared with other students. Choose a title, emoji, and a set of
+            courses. We will map out all your prerequisites.{" "}
+          </p>
         </div>
       </Row>
       <Row className="justify-content-center">
         <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label htmlFor="title" style={{fontSize: "20px"}}>Title</label>
+            <label htmlFor="title" style={{ fontSize: "20px" }}>
+              Title
+            </label>
             <input
               className="form-control"
               id="title"
@@ -54,7 +57,9 @@ function Form() {
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label htmlFor="emoji" style={{fontSize: "20px"}}>Emoji (Optional)</label>
+            <label htmlFor="emoji" style={{ fontSize: "20px" }}>
+              Emoji (Optional)
+            </label>
             <h1>{emoji}</h1>
             <EmojiPicker
               width="100%"
@@ -74,7 +79,9 @@ function Form() {
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label style={{fontSize: "20px", paddingBottom: "5px"}}>Add Courses</label>
+            <label style={{ fontSize: "20px", paddingBottom: "5px" }}>
+              Add 3 to 10 Courses
+            </label>
 
             <input
               hidden
@@ -88,7 +95,11 @@ function Form() {
               {" "}
             </Tracks>
           </div>
-          <button type="submit" className="btn btn-primary" style={{fontSize: "20px"}}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ fontSize: "20px" }}
+          >
             Make Track
           </button>
         </form>

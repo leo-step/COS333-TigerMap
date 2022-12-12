@@ -40,7 +40,7 @@ function ViewTracks() {
           </p>
         </div>
         {tracks.map((track, index) => (
-          <Col className="m-1 justify-content-center">
+          <Col className="m-1 justify-content-center" key={index}>
             <TrackButton
               track={track}
               color={colors[index % colors.length]}

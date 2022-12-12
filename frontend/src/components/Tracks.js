@@ -37,6 +37,8 @@ function Tracks(props) {
     ) {
       if (props.courses.length > 10) {
         alert("You can only select a maximum of 10 courses.");
+      } else if (props.courses.length < 3) {
+        alert("You need to select a minimum of 3 courses");
       } else {
         axios
           .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
