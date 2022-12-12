@@ -8,7 +8,31 @@ import Badge from "react-bootstrap/Badge";
 import { TrashFill } from "react-bootstrap-icons";
 
 function Tracks(props) {
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState([
+    {
+      _id: "001381",
+      value: "ECO100 - Introduction to Microeconomics",
+      label: "ECO 100 - Introduction to Microeconomics",
+    },
+    { _id: "004140", value: "004140", label: "MAT 104 - Calculus II" },
+    {
+      _id: "002054",
+      value: "COS226 - Algorithms and Data Structures",
+      label: "COS 226 - Algorithms and Data Structures",
+    },
+    {
+      _id: "013781",
+      value:
+        "POL345 SOC305 SPI211 - Introduction to Quantitative Social Science",
+      label:
+        "POL 345 / SOC 305 / SPI 211 - Introduction to Quantitative Social Science",
+    },
+    {
+      _id: "000880",
+      value: "MOL345 CHM345 - Biochemistry",
+      label: "MOL 345 / CHM 345 - Biochemistry",
+    },
+  ]);
   const [courseId, setCourseId] = useState(null);
   const [query, setQuery] = useState(null);
 
@@ -21,7 +45,10 @@ function Tracks(props) {
           for (let i = 0; i < result.length; i++) {
             result[i].label =
               result[i].crosslistings + " - " + result[i].long_title;
-            result[i].value = result[i]._id;
+            result[i].value =
+              result[i].crosslistings.replaceAll(" ", "").replaceAll("/", " ") +
+              " - " +
+              result[i].long_title;
           }
           setResponse(result);
         });
@@ -51,15 +78,20 @@ function Tracks(props) {
         <div style={{ maxWidth: "800px", padding: "0px" }} onClick={() => setQuery(null)}>
           {/*<img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }}/>*/}
           <Select
-            onInputChange={(val) => setQuery(val)}
-            onChange={(event) => {
-              setCourseId(event._id);
-            }}
-            options={response}
-            placeholder="Search for a class by entering a name or keyword"
-            className="mb-2"
-            value={query}
-          />
+              onInputChange={(val) => {
+                setQuery(val);
+              }}
+              onChange={(event) => {
+                setCourseId(event._id);
+              }}
+              options={response}
+              placeholder="Search for a class by entering a name or keyword"
+              className="mb-2"
+              value={query}
+              noOptionsMessage={() =>
+                "No results found. Try adding a space if you have a course code."
+              }
+            />
         </div>
       </Row>
       <div style={{ marginTop: "5px" }}>

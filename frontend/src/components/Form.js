@@ -33,9 +33,9 @@ function Form() {
     }
   };
   return (
-    <Container fluid className="m-2">
+    <Container fluid className="m-2" style={{minHeight: "900px"}}>
       <Row className="justify-content-center">
-        <div style={{ textAlign: "center", maxWidth: "750px" }}>
+        <div style={{ textAlign: "center", maxWidth: "750px"}}>
           <h1>Create a Course Track</h1>
           <p style={{ fontSize: "24px" }}>
             Here, you can make a course track for your interest area that will
