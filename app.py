@@ -59,6 +59,24 @@ def search():
                             "path": "crosslistings"
                         },
                     },
+                    {
+                        "autocomplete": {
+                            "query": query,
+                            "path": "subject"
+                        },
+                    },
+                    {
+                        "autocomplete": {
+                            "query": query,
+                            "path": "catnum"
+                        },
+                    },
+                    {
+                        "autocomplete": {
+                            "query": query,
+                            "path": "concat"
+                        },
+                    },
                 ],
             }
             }
@@ -70,20 +88,6 @@ def search():
         { "$limit": 5 }
     ]))
     return jsonify(results)
-
-    '''
-      $search: {
-    "index": "<index name>", // optional, defaults to "default"
-    "autocomplete": {
-      "query": "<search-string>",
-      "path": "<field-to-search>",
-      "tokenOrder": "any|sequential",
-      "fuzzy": <options>,
-      "score": <options>
-    }
-  }
-    
-    '''
 
 @app.route("/createtrack", methods = ["POST"])
 def create_tracks():
