@@ -6,13 +6,14 @@ function TrackButton(props) {
 
   return (
     <Button
+      className="track-button"
       style={{
         color: "black",
         backgroundColor: props.color,
         width: "100%",
         height: "100%",
         minWidth: "100px",
-        minHeight: "100px"
+        minHeight: "100px",
       }}
       onClick={() => {
         navigate(props.url);

@@ -52,3 +52,12 @@ body {
     background-color: #289F00 !important;
     border-color: #289F00 !important;
 }
+.track-button {
+    border-color: #F8F8FE !important;
+    border-width: 2px !important;
+}
+
+.track-button:hover {
+    border-color: black !important;
+    border-width: 2px !important;
+}

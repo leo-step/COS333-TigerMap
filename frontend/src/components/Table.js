@@ -19,7 +19,22 @@ function createTable(props) {
             paddingBottom: "10px",
           }}
         >
-          <i>{props.placeholder}</i>
+          <i>
+            {props.placeholder}{" "}
+            {props.showLinks && (
+              <span>
+                You can either{" "}
+                <a href="/tracks" className="orange-color">
+                  browse more tracks
+                </a>{" "}
+                or{" "}
+                <a href="/" className="orange-color">
+                  go to the home page
+                </a>
+                .
+              </span>
+            )}
+          </i>
         </div>
       )}
       {props.courses && (
@@ -32,7 +47,7 @@ function createTable(props) {
                   onClick={() => {
                     props.setCourseId(course._id);
                   }}
-                  style={{fontSize: "20px"}}
+                  style={{ fontSize: "20px" }}
                 >
                   <td>{course.crosslistings}</td>
                   <td>{course.long_title}</td>
