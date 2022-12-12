@@ -79,7 +79,7 @@ function Main() {
       </Row>
       <Row className="justify-content-center">
         <div style={{ maxWidth: "720px" }}>
-          <p style={{fontSize: "20px"}}>
+          <p style={{fontSize: "20px"}} onClick={() => setQuery(null)}>
             <Select
               onInputChange={(val) => setQuery(val)}
               onChange={(event) => {
@@ -88,6 +88,7 @@ function Main() {
               options={response}
               placeholder="Search for a class by entering a name or keyword"
               className="m-2"
+              value={query}
             />
           </p>
         </div>
