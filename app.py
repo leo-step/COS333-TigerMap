@@ -97,5 +97,35 @@ def track_details():
     )
     return response
 
+@app.route("/graph", methods = ["POST"])
+def get_graph_data():
+    course_ids = request.json.get("course_ids")
+    fields = {"subject": 1, "catnum": 1}
+
+    graph = dict()
+
+    def insert(course_id):
+        if course_id in graph:
+            return
+        graph[course_id] = []
+        for prereq_id in prereqs[course_id]:
+            insert(prereq_id)
+            graph[prereq_id].append(course_id)
+
+    for course_id in course_ids:
+        insert(course_id)
+    
+    adj = []
+    for source, arr in graph.items():
+        for target in arr:
+            adj.append({"source": source, "target": target})
+
+    course_data = list(db.details.find({"_id": {"$in" : list(graph.keys())}}, fields))
+    for data in course_data:
+        data["id"] = data["_id"]
+        del data["_id"]
+
+    return jsonify({"links": adj, "nodes": course_data})
+
 if __name__ == "__main__":
     app.run()
