@@ -1,3 +1,5 @@
+import Button from "react-bootstrap/Button";
+
 function CurrentCourse(props) {
   console.log(props.details);
   if (props.details == null) {
@@ -28,6 +30,20 @@ function CurrentCourse(props) {
       >
         <h2 style={{ textAlign: "center", paddingBottom: "10px" }}>
           {props.details.crosslistings}: {props.details.long_title}
+          <a
+            href={`https://registrar.princeton.edu/course-offerings/course-details?term=${props.details.term}&courseid=${props.details._id}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button className="btn-orange">Course Offerings</Button>
+          </a>
+          <a
+            href={`https://www.princetoncourses.com/course/${props.details.term}${props.details._id}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button className="btn-green">Course Evaluations</Button>
+          </a>
         </h2>
         <p>
           <b>Description: </b>

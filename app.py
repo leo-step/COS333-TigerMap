@@ -29,7 +29,7 @@ def not_found(e):
 def api():
     fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1}
     details_fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1, "description": 1,
-        "reading_writing_assignment": 1, "other_restrictions": 1}
+        "reading_writing_assignment": 1, "other_restrictions": 1, "term": 1}
     course_id = request.args.get("course_id")
     prereq_details = list(db.details.find({"_id": {"$in" : prereqs[course_id]}}, fields).sort("crosslistings", 1))
     postreq_details = list(db.details.find({"_id": {"$in" : postreqs[course_id]}}, fields).sort("crosslistings", 1))

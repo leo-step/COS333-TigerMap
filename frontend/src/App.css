@@ -19,3 +19,28 @@ body {
 .trash:hover {
     color: red;
 }
+.btn-orange,
+.btn-orange:active,
+.btn-orange:visited,
+.btn-orange:focus {
+    background-color: #FD7D23 !important;
+    border-color: #FD7D23 !important;
+}
+
+.btn-orange:hover {
+    background-color: #DD6300 !important;
+    border-color: #DD6300 !important;
+}
+
+.btn-green,
+.btn-green:active,
+.btn-green:visited,
+.btn-green:focus {
+    background-color: #4CBB17 !important;
+    border-color: #4CBB17 !important;
+}
+
+.btn-green:hover {
+    background-color: #289F00 !important;
+    border-color: #289F00 !important;
+}
