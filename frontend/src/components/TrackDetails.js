@@ -37,7 +37,8 @@ function TrackDetails() {
           <Table
             header={track.title + " " + track.emoji}
             courses={track.courses}
-            placeholder={`A course track is a group of courses that matches a certain theme. These are the courses within the ${track.title} track.`}
+            placeholder={`A course track is a group of courses that aligns with a student's interest area. 
+            These are the courses in the ${track.title} track.`}
           />
         )}
       </Row>

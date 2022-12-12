@@ -32,6 +32,14 @@ body {
     border-color: #DD6300 !important;
 }
 
+.orange-color {
+    color: #FD7D23 !important;
+}
+
+.orange-color:hover {
+    color: #DD6300 !important;
+}
+
 .btn-green,
 .btn-green:active,
 .btn-green:visited,

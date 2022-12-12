@@ -32,10 +32,11 @@ function ViewTracks() {
       <Row>
         <div style={{ textAlign: "center" }}>
           <h1>Browse Course Tracks</h1>
-          <p style={{fontSize: "24px"}}>
-            Below are user created course tracks. Click any track to view the
-            courses in it. To create your own track ad share it with others,
-            click on Create Track!{" "}
+          <p style={{ fontSize: "24px" }}>
+            Below are user created course tracks. A course track is a group of
+            courses that aligns with a student's interest area. Click any track
+            to view the courses in it. To create your own track and share it with
+            others, click on <a href="/create" className="orange-color">Create Track!</a>{" "}
           </p>
         </div>
         {tracks.map((track, index) => (

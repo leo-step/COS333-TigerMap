@@ -11,18 +11,27 @@ import logo from "../images/logo.png";
 
 function Main() {
   const [response, setResponse] = useState([
-    { _id: "001381", label: "ECO 100 - Introduction to Microeconomics" },
-    { _id: "012071", value: "012071", label: "MAT 100 - Calculus Foundations" },
     {
-      _id: "016113",
-      value: "016113",
-      label: "REL 100 - Religion and the Public Conversation",
+      _id: "001381",
+      value: "001381",
+      label: "ECO 100 - Introduction to Microeconomics",
+    },
+    { _id: "004140", value: "004140", label: "MAT 104 - Calculus II" },
+    {
+      _id: "002054",
+      value: "002054",
+      label: "COS 226 - Algorithms and Data Structures",
     },
     {
-      _id: "010069",
-      value: "010069",
+      _id: "013781",
+      value: "013781",
       label:
-        "ART 100 - An Introduction to the History of Art: Meanings in the Visual Arts",
+        "POL 345 / SOC 305 / SPI 211 - Introduction to Quantitative Social Science",
+    },
+    {
+      _id: "000880",
+      value: "000880",
+      label: "MOL 345 / CHM 345 - Biochemistry",
     },
   ]);
   const [courseId, setCourseId] = useState(null);
@@ -70,7 +79,7 @@ function Main() {
       </Row>
       <Row className="justify-content-center">
         <div style={{ maxWidth: "720px" }}>
-          <h3>
+          <p style={{fontSize: "20px"}}>
             <Select
               onInputChange={(val) => setQuery(val)}
               onChange={(event) => {
@@ -80,7 +89,7 @@ function Main() {
               placeholder="Search for a class by entering a name or keyword"
               className="m-2"
             />
-          </h3>
+          </p>
         </div>
       </Row>
       <Row>
