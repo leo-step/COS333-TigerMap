@@ -15,6 +15,7 @@ function CurrentCourse(props) {
       >
         <p
           style={{ textAlign: "center", fontSize: "24px", marginBottom: "0px" }}
+          className="orange-no-hover"
         >
           The course details will appear here.
         </p>
