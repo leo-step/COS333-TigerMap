@@ -123,13 +123,13 @@ function Main() {
           </Col>
           <Col>
             <Table
-              header={"This course leads to..."}
+              header={"This course is required for..."}
               setCourseId={setCourseId}
               courses={data.postreqs}
               placeholder={
                 (data.postreqs.length > 0 &&
                   "Click a course to view its details.") ||
-                "This course doesn't lead to any classes."
+                "This course isn't required for any classes."
               }
               colorPlaceholder
             />
@@ -147,9 +147,9 @@ function Main() {
           </Col>
           <Col>
             <Table
-              header={"This course leads to..."}
+              header={"This course is required for..."}
               setCourseId={setCourseId}
-              placeholder={"Search for a course to see what it leads to."}
+              placeholder={"Search for a course to see what it is required for."}
               colorPlaceholder
             />
           </Col>
