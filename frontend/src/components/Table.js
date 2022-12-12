@@ -11,10 +11,19 @@ function createTable(props) {
       className="m-4 myTable"
     >
       <h2 style={{ textAlign: "center" }}>{props.header}</h2>
-        <div style={{ textAlign: "center", fontSize: "20px", paddingBottom: "10px" }}>
-          <i>Click a course to view its details</i>
+      {props.placeholder && (
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "20px",
+            paddingBottom: "10px",
+          }}
+        >
+          <i>{props.placeholder}</i>
         </div>
-        {props.courses && <Table borderless hover>
+      )}
+      {props.courses && (
+        <Table borderless hover>
           <tbody>
             {props.courses.map(function (course) {
               return (
@@ -31,7 +40,8 @@ function createTable(props) {
               );
             })}
           </tbody>
-        </Table>}
+        </Table>
+      )}
     </div>
   );
 }

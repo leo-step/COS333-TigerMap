@@ -58,7 +58,7 @@ function Tracks(props) {
               setCourseId(event._id);
             }}
             options={response}
-            placeholder="Search"
+            placeholder="Search for a class by entering a name or keyword"
             className="mb-2"
           />
         </div>

@@ -21,7 +21,7 @@ function Form() {
     };
 
     if (data.title !== "" && data.courses !== "[]") {
-      axios.post("/createtrack", data).then((response) => {
+      axios.post("http://127.0.0.1:5000/createtrack", data).then((response) => {
         navigate("/track/" + response.data.id);
       });
     } else if (data.title === "") {
@@ -54,7 +54,7 @@ function Form() {
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
-            <label htmlFor="emoji">Emoji</label>
+            <label htmlFor="emoji">Emoji (Optional)</label>
             <h1>{emoji}</h1>
             <EmojiPicker
               width="100%"

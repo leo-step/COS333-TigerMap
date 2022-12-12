@@ -21,12 +21,14 @@ function TrackDetails() {
   useEffect(() => {
     if (track) {
       axios
-      .post("http://127.0.0.1:5000/graph", {course_ids: track.courses.map(course => course._id)})
-      .then((response) => {
-        console.log(response.data);
-      });
+        .post("http://127.0.0.1:5000/graph", {
+          course_ids: track.courses.map((course) => course._id),
+        })
+        .then((response) => {
+          console.log(response.data);
+        });
     }
-  }, [track])
+  }, [track]);
 
   return (
     <Container fluid style={{ maxWidth: "1200px" }}>
@@ -35,6 +37,7 @@ function TrackDetails() {
           <Table
             header={track.title + " " + track.emoji}
             courses={track.courses}
+            placeholder={`A course track is a group of courses that matches a certain theme. These are the courses within the ${track.title} track.`}
           />
         )}
       </Row>
