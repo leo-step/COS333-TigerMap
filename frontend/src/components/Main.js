@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Table from "./Table";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,12 +9,13 @@ import Col from "react-bootstrap/Col";
 import CurrentCourse from "./CurrentCourse";
 import Select from "react-select";
 import logo from "../images/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useHistory } from "react-router-dom";
 import { DEFAULT_SEARCH, URL_PREFIX } from "../config";
 
 function Main() {
+  const params = useParams();
   const [response, setResponse] = useState(DEFAULT_SEARCH);
-  const [courseId, setCourseId] = useState(null);
+  const [courseId, setCourseId] = useState(params.id);
   const [query, setQuery] = useState(null);
   const [data, setData] = useState();
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ function Main() {
         .get(`${URL_PREFIX}/api`, { params: { course_id: courseId } })
         .then((response) => {
           setData(response.data);
-        }).catch(() => navigate("/error"));
+        }).catch(() => navigate("/notfound"));
     }
   }, [courseId]);
 
@@ -51,7 +53,9 @@ function Main() {
     <Container fluid style={{ maxWidth: "1600px" }}>
       <Row className="justify-content-center">
         <div style={{ textAlign: "center", maxWidth: "800px" }}>
-          <img src={logo} alt="TigerMap" style={{ maxWidth: "500px " }} />
+          <div style={{ marginLeft: "auto", marginRight: "auto", maxWidth: "500px" }}>
+            <img src={logo} alt="TigerMap" style={{ maxWidth: "100%"}} />
+          </div>
           <p style={{ fontSize: "24px" }}>
             Course selection can feel like a treasure hunt with no destination.
             TigerMap helps you find the way to the courses you want to take in
@@ -68,6 +72,7 @@ function Main() {
               }}
               onChange={(event) => {
                 setCourseId(event._id);
+                navigate(`/${event._id}`);
               }}
               options={response}
               placeholder="Search for a prerequisite in your major"

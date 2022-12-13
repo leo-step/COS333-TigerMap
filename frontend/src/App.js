@@ -20,8 +20,10 @@ function App() {
           <Route path="/create" element={<Form />} />
           <Route path="/tracks" element={<ViewTracks />} />
           <Route path="/track/:id" element={<TrackDetails />} />
-          <Route path="/" element={<Main />} />
+          <Route path="/:id" element={<Main />} />
           <Route path="/error" element={<Error />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/notfound" element={<NotFound />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

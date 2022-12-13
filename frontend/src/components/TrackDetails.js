@@ -41,6 +41,7 @@ function TrackDetails() {
         {track && (
           <Table
             header={track.title + " " + track.emoji}
+            setCourseId={(id) => navigate(`/${id}`)}
             courses={track.courses}
             placeholder={`A course track is a group of courses that aligns with a student's interest area. 
             These are the courses in the ${track.title} track.`}
