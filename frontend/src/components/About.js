@@ -50,7 +50,7 @@ function About() {
             alt="aaliyahhead"
             style={{ maxWidth: "250px " }}
           />
-          <h6> Aaliyah Hadid '25</h6>
+          <h6> Aaliyah Sayed '25</h6>
         </Col>
         <Col style={{ textAlign: "center" }}>
           <img src={billhead} alt="billhead" style={{ maxWidth: "250px " }} />
