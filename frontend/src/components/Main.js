@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import CurrentCourse from "./CurrentCourse";
 import Select from "react-select";
 import logo from "../images/logo.png";
-import { useNavigate, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DEFAULT_SEARCH, URL_PREFIX } from "../config";
 
 function Main() {
@@ -35,7 +35,8 @@ function Main() {
               result[i].long_title;
           }
           setResponse(result);
-        }).catch(() => navigate("/error"));
+        })
+        .catch(() => navigate("/error"));
     }
   }, [query]);
 
@@ -45,7 +46,8 @@ function Main() {
         .get(`${URL_PREFIX}/api`, { params: { course_id: courseId } })
         .then((response) => {
           setData(response.data);
-        }).catch(() => navigate("/notfound"));
+        })
+        .catch(() => navigate("/notfound"));
     }
   }, [courseId]);
 
@@ -53,8 +55,14 @@ function Main() {
     <Container fluid style={{ maxWidth: "1600px" }}>
       <Row className="justify-content-center">
         <div style={{ textAlign: "center", maxWidth: "800px" }}>
-          <div style={{ marginLeft: "auto", marginRight: "auto", maxWidth: "500px" }}>
-            <img src={logo} alt="TigerMap" style={{ maxWidth: "100%"}} />
+          <div
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+              maxWidth: "500px",
+            }}
+          >
+            <img src={logo} alt="TigerMap" style={{ maxWidth: "100%" }} />
           </div>
           <p style={{ fontSize: "24px" }}>
             Course selection can feel like a treasure hunt with no destination.
@@ -95,7 +103,10 @@ function Main() {
           <Col>
             <Table
               header={"Prerequisites"}
-              setCourseId={setCourseId}
+              setCourseId={(id) => {
+                setCourseId(id);
+                navigate(`/${id}`);
+              }}
               courses={data.prereqs}
               placeholder={
                 (data.prereqs.length > 0 &&
@@ -108,7 +119,10 @@ function Main() {
           <Col>
             <Table
               header={"This course is required for..."}
-              setCourseId={setCourseId}
+              setCourseId={(id) => {
+                setCourseId(id);
+                navigate(`/${id}`);
+              }}
               courses={data.postreqs}
               placeholder={
                 (data.postreqs.length > 0 &&
@@ -124,7 +138,10 @@ function Main() {
           <Col>
             <Table
               header={"Prerequisites"}
-              setCourseId={setCourseId}
+              setCourseId={(id) => {
+                setCourseId(id);
+                navigate(`/${id}`);
+              }}
               placeholder={"Search for a course to view its prerequisites."}
               colorPlaceholder
             />
@@ -132,8 +149,13 @@ function Main() {
           <Col>
             <Table
               header={"This course is required for..."}
-              setCourseId={setCourseId}
-              placeholder={"Search for a course to see what it is required for."}
+              setCourseId={(id) => {
+                setCourseId(id);
+                navigate(`/${id}`);
+              }}
+              placeholder={
+                "Search for a course to see what it is required for."
+              }
               colorPlaceholder
             />
           </Col>
