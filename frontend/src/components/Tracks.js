@@ -6,40 +6,19 @@ import Row from "react-bootstrap/Row";
 import Select from "react-select";
 import Badge from "react-bootstrap/Badge";
 import { TrashFill } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
+import { DEFAULT_SEARCH, URL_PREFIX } from "../config";
 
 function Tracks(props) {
-  const [response, setResponse] = useState([
-    {
-      _id: "001381",
-      value: "ECO100 - Introduction to Microeconomics",
-      label: "ECO 100 - Introduction to Microeconomics",
-    },
-    { _id: "001388", value: "ECO300 - Microeconomic Theory", label: "ECO 300 - Microeconomic Theory" },
-    {
-      _id: "001391",
-      value: "ECO310 - Microeconomic Theory: A Mathematical Approach",
-      label: "ECO 310 - Microeconomic Theory: A Mathematical Approach",
-    },
-    {
-      _id: "001397",
-      value:
-        "ECO321  - Firm Competition and Strategy",
-      label:
-        "ECO 321 - Firm Competition and Strategy",
-    },
-    {
-      _id: "010527",
-      value: "ECO332 GHP332 - Economics of Health and Health Care",
-      label: "ECO 332 / GHP 332 - Economics of Health and Health Care",
-    },
-  ]);
+  const [response, setResponse] = useState(DEFAULT_SEARCH);
   const [courseId, setCourseId] = useState(null);
   const [query, setQuery] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (query) {
       axios
-        .get("http://127.0.0.1:5000/search", { params: { query: query } })
+        .get(`${URL_PREFIX}/search`, { params: { query: query } })
         .then((response) => {
           let result = response.data;
           for (let i = 0; i < result.length; i++) {
@@ -51,7 +30,7 @@ function Tracks(props) {
               result[i].long_title;
           }
           setResponse(result);
-        });
+        }).catch(() => navigate("/error"));
     }
   }, [query]);
 
@@ -64,10 +43,10 @@ function Tracks(props) {
         alert("You can only select a maximum of 10 courses.");
       } else {
         axios
-          .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
+          .get(`${URL_PREFIX}/api`, { params: { course_id: courseId } })
           .then((response) => {
             props.setCourses([...props.courses, response.data]);
-          });
+          }).catch(() => navigate("/error"));
       }
     }
   }, [courseId]);

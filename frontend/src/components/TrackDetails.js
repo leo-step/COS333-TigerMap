@@ -6,6 +6,7 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import graph from "../images/graph.png";
 import { useNavigate } from "react-router-dom";
+import { URL_PREFIX } from "../config";
 
 function TrackDetails() {
   const params = useParams();
@@ -14,7 +15,7 @@ function TrackDetails() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/trackdetails", { params: { id: params.id } })
+      .get(`${URL_PREFIX}/trackdetails`, { params: { id: params.id } })
       .then((response) => {
         setTrack(response.data);
       }).catch(() => {
@@ -22,17 +23,17 @@ function TrackDetails() {
       });
   }, [params]);
 
-  useEffect(() => {
-    if (track) {
-      axios
-        .post("http://127.0.0.1:5000/graph", {
-          course_ids: track.courses.map((course) => course._id),
-        })
-        .then((response) => {
-          console.log(response.data);
-        });
-    }
-  }, [track]);
+  // useEffect(() => {
+  //   if (track) {
+  //     axios
+  //       .post(`${URL_PREFIX}/graph`, {
+  //         course_ids: track.courses.map((course) => course._id),
+  //       })
+  //       .then((response) => {
+  //         console.log(response.data);
+  //       }).catch(() => navigate("/error"));
+  //   }
+  // }, [track]);
 
   return (
     <Container fluid style={{ maxWidth: "1200px" }}>

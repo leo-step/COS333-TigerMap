@@ -8,41 +8,20 @@ import Col from "react-bootstrap/Col";
 import CurrentCourse from "./CurrentCourse";
 import Select from "react-select";
 import logo from "../images/logo.png";
+import { useNavigate } from "react-router-dom";
+import { DEFAULT_SEARCH, URL_PREFIX } from "../config";
 
 function Main() {
-  const [response, setResponse] = useState([
-    {
-      _id: "001381",
-      value: "ECO100 - Introduction to Microeconomics",
-      label: "ECO 100 - Introduction to Microeconomics",
-    },
-    { _id: "001388", value: "ECO300 - Microeconomic Theory", label: "ECO 300 - Microeconomic Theory" },
-    {
-      _id: "001391",
-      value: "ECO310 - Microeconomic Theory: A Mathematical Approach",
-      label: "ECO 310 - Microeconomic Theory: A Mathematical Approach",
-    },
-    {
-      _id: "001397",
-      value:
-        "ECO321  - Firm Competition and Strategy",
-      label:
-        "ECO 321 - Firm Competition and Strategy",
-    },
-    {
-      _id: "010527",
-      value: "ECO332 GHP332 - Economics of Health and Health Care",
-      label: "ECO 332 / GHP 332 - Economics of Health and Health Care",
-    },
-  ]);
+  const [response, setResponse] = useState(DEFAULT_SEARCH);
   const [courseId, setCourseId] = useState(null);
   const [query, setQuery] = useState(null);
   const [data, setData] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (query) {
       axios
-        .get("http://127.0.0.1:5000/search", { params: { query: query } })
+        .get(`${URL_PREFIX}/search`, { params: { query: query } })
         .then((response) => {
           let result = response.data;
           for (let i = 0; i < result.length; i++) {
@@ -54,17 +33,17 @@ function Main() {
               result[i].long_title;
           }
           setResponse(result);
-        });
+        }).catch(() => navigate("/error"));
     }
   }, [query]);
 
   useEffect(() => {
     if (courseId) {
       axios
-        .get("http://127.0.0.1:5000/api", { params: { course_id: courseId } })
+        .get(`${URL_PREFIX}/api`, { params: { course_id: courseId } })
         .then((response) => {
           setData(response.data);
-        });
+        }).catch(() => navigate("/error"));
     }
   }, [courseId]);
 
@@ -110,7 +89,7 @@ function Main() {
         <Row>
           <Col>
             <Table
-              header={"Prerequsites"}
+              header={"Prerequisites"}
               setCourseId={setCourseId}
               courses={data.prereqs}
               placeholder={
@@ -139,7 +118,7 @@ function Main() {
         <Row>
           <Col>
             <Table
-              header={"Prerequsites"}
+              header={"Prerequisites"}
               setCourseId={setCourseId}
               placeholder={"Search for a course to view its prerequisites."}
               colorPlaceholder

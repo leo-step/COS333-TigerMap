@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EmojiPicker from "emoji-picker-react";
+import { URL_PREFIX } from "../config";
 
 function Form() {
   const [courses, setCourses] = useState([]);
@@ -21,9 +22,9 @@ function Form() {
     };
 
     if (data.title !== "" && data.courses !== "[]" && courses.length >= 3) {
-      axios.post("http://127.0.0.1:5000/createtrack", data).then((response) => {
+      axios.post(`${URL_PREFIX}/createtrack`, data).then((response) => {
         navigate("/track/" + response.data.id);
-      });
+      }).catch(() => navigate("/error"));
     } else if (data.title === "") {
       alert("Please enter a title.");
     } else if (courses.length < 3) {
@@ -56,7 +57,7 @@ function Form() {
               id="title"
               name="title"
               placeholder="Enter track title"
-              maxlength="64"
+              maxLength="64"
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>
