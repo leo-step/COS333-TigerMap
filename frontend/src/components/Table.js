@@ -45,6 +45,7 @@ function createTable(props) {
                 <tr
                   key={course._id}
                   onClick={() => {
+                    console.log(props.setCourseId);
                     props.setCourseId(course._id);
                   }}
                   style={{ fontSize: "20px"}}
