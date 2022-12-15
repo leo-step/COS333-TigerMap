@@ -39,7 +39,8 @@ function Tracks(props) {
       courseId &&
       !props.courses.map((course) => course._id).includes(courseId)
     ) {
-      if (props.courses.length > 10) {
+      if (props.courses.length >= 10) {
+        props.setCourses(props.courses.slice(0, 10))
         alert("You can only select a maximum of 10 courses.");
       } else {
         axios
@@ -89,9 +90,10 @@ function Tracks(props) {
             <TrashFill
               className="trash"
               style={{ marginRight: "8px" }}
-              onClick={() =>
-                props.setCourses(props.courses.filter((item) => item._id !== course._id))
-              }
+              onClick={() => {
+                props.setCourses(props.courses.filter((item) => item._id !== course._id));
+                setCourseId(null);
+              }}
             />
             {course.crosslistings + " - " + course.long_title}
           </Badge>

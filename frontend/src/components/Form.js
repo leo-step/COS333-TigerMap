@@ -57,7 +57,7 @@ function Form() {
               id="title"
               name="title"
               placeholder="Enter track title"
-              maxLength="64"
+              maxLength="56"
             />
           </div>
           <div className="form-group" style={{ paddingBottom: "10px" }}>

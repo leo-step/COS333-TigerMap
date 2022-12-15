@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from flask_cors import CORS # comment this on deployment
+# from flask_cors import CORS # comment this on deployment
 from collections import defaultdict
 import pymongo
 import os
@@ -12,7 +12,7 @@ load_dotenv()
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 app.secret_key = os.getenv("APP_SECRET_KEY")
-CORS(app)
+# CORS(app)
 
 @app.route("/")
 def index():
@@ -110,20 +110,22 @@ def create_tracks():
     emoji = request.json.get("emoji")
     courses_json_string = request.json.get("courses")
 
-    if not title and not courses_json_string:
+    if not title or not courses_json_string or len(title) > 56 or len(emoji) > 1:
         print("Invalid form inputs provided", file=sys.stderr)
         return jsonify({}), 400
 
-    fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1, "description": 1,
-        "reading_writing_assignment": 1, "other_restrictions": 1, "term": 1}
-
     try:
         course_ids = list(map(lambda x: x["_id"], json.loads(courses_json_string)))
+        if len(course_ids) < 3 or len(course_ids) > 10:
+            print("Invalid form inputs provided", file=sys.stderr)
+            return jsonify({}), 400
     except Exception as ex:
         print("Invalid form inputs provided", file=sys.stderr)
         return jsonify({}), 400
 
     try:
+        fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1, "description": 1,
+            "reading_writing_assignment": 1, "other_restrictions": 1, "term": 1}
         client = pymongo.MongoClient(os.getenv("DB_CONN"))
         db = client.courses
         courses = list(db.details.find({"_id": {"$in" : course_ids}}, fields))
