@@ -110,14 +110,23 @@ def create_tracks():
     emoji = request.json.get("emoji")
     courses_json_string = request.json.get("courses")
 
-    if not title or not courses_json_string:
-        print("Invalid form inputs provided")
+    if not title and not courses_json_string:
+        print("Invalid form inputs provided", file=sys.stderr)
+        return jsonify({}), 400
+
+    fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1, "description": 1,
+        "reading_writing_assignment": 1, "other_restrictions": 1, "term": 1}
+
+    try:
+        course_ids = list(map(lambda x: x["_id"], json.loads(courses_json_string)))
+    except Exception as ex:
+        print("Invalid form inputs provided", file=sys.stderr)
         return jsonify({}), 400
 
     try:
-        courses = json.loads(courses_json_string)
         client = pymongo.MongoClient(os.getenv("DB_CONN"))
         db = client.courses
+        courses = list(db.details.find({"_id": {"$in" : course_ids}}, fields))
         result = db.tracks.insert_one({"title": title, "emoji": emoji, "courses": courses})
         return jsonify({"id": str(result.inserted_id)})
     except Exception as ex:
