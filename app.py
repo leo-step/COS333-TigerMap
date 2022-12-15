@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-# from flask_cors import CORS # comment this on deployment
+from flask_cors import CORS # comment this on deployment
 from collections import defaultdict
 import pymongo
 import os
@@ -12,7 +12,7 @@ load_dotenv()
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 app.secret_key = os.getenv("APP_SECRET_KEY")
-# CORS(app)
+CORS(app)
 
 @app.route("/")
 def index():
