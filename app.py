@@ -110,7 +110,7 @@ def create_tracks():
     emoji = request.json.get("emoji")
     courses_json_string = request.json.get("courses")
 
-    if not title or not courses_json_string or len(title) > 56 or len(emoji) > 1:
+    if not title or not courses_json_string or len(title) > 56:
         print("Invalid form inputs provided", file=sys.stderr)
         return jsonify({}), 400
 
