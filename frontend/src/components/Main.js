@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import CurrentCourse from "./CurrentCourse";
 import Select from "react-select";
 import logo from "../images/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { DEFAULT_SEARCH, URL_PREFIX } from "../config";
 
 function Main() {
@@ -17,8 +17,13 @@ function Main() {
   const [response, setResponse] = useState(DEFAULT_SEARCH);
   const [courseId, setCourseId] = useState(params.id);
   const [query, setQuery] = useState(null);
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation()
+
+  if (courseId !== location.pathname.slice(1)) {
+    setCourseId(location.pathname.slice(1));
+  }
 
   useEffect(() => {
     if (query) {
@@ -41,6 +46,7 @@ function Main() {
   }, [query]);
 
   useEffect(() => {
+    console.log("hit")
     if (courseId) {
       axios
         .get(`${URL_PREFIX}/api`, { params: { course_id: courseId } })
@@ -48,6 +54,8 @@ function Main() {
           setData(response.data);
         })
         .catch(() => navigate("/notfound"));
+    } else {
+      setData(null);
     }
   }, [courseId]);
 
