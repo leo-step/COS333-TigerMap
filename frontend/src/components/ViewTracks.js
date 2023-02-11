@@ -33,7 +33,7 @@ function ViewTracks() {
   return (
     <Container fluid className="mt-2" style={{ maxWidth: "900px" }}>
       <Row>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", marginBottom: 12 }}>
           <h1>Browse Course Tracks</h1>
           <p style={{ fontSize: "24px" }}>
             Below are user created course tracks. A course track is a group of
@@ -41,6 +41,9 @@ function ViewTracks() {
             to view the courses in it. To create your own track and share it with
             others, click on <a href="/create" className="orange-color">Create Track!</a>{" "}
           </p>
+          <i>
+              These course tracks are not vetted or approved by the University.
+          </i>
         </div>
         {tracks.map((track, index) => (
           <Col className="m-1 justify-content-center" key={index}>

@@ -91,7 +91,7 @@ function Main() {
                 navigate(`/${event._id}`);
               }}
               options={response}
-              placeholder="Search for a prerequisite in your major"
+              placeholder="Search for a course to explore prerequisites"
               className="m-2"
               value={query}
               noOptionsMessage={() =>
@@ -99,6 +99,11 @@ function Main() {
               }
             />
           </p>
+          <div style={{textAlign: "center"}}>
+            <i>
+              Always check the Registrar's site for the official prerequisites policy.
+            </i>
+          </div>
         </div>
       </Row>
       <Row>
@@ -126,7 +131,7 @@ function Main() {
           </Col>
           <Col>
             <Table
-              header={"This course is required for..."}
+              header={"This course may be required for..."}
               setCourseId={(id) => {
                 setCourseId(id);
                 navigate(`/${id}`);
@@ -156,13 +161,13 @@ function Main() {
           </Col>
           <Col>
             <Table
-              header={"This course is required for..."}
+              header={"This course may be required for..."}
               setCourseId={(id) => {
                 setCourseId(id);
                 navigate(`/${id}`);
               }}
               placeholder={
-                "Search for a course to see what it is required for."
+                "Search for a course to see what it's required for."
               }
               colorPlaceholder
             />
