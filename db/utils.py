@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 import re
 import pymongo
+from constants import *
 
 load_dotenv()
 
@@ -46,10 +47,23 @@ def get_current_term():
 
 # get a list of all course ids for a term
 def get_course_ids(term):
-    req = requests.get(f"https://api.princeton.edu/registrar/course-offerings/classes/{term}", 
-        headers={"Authorization": "Bearer " + os.getenv("BEARER")})
+    req = requests.get(
+        "https://api.princeton.edu:443/student-app/1.0.1/courses/courses",
+        params={"fmt": "json", "term": term, "subject": "list"},
+        headers={"Authorization": "Bearer " + refresh_token()})
     response = json.loads(req.text)
-    course_ids = list(map(lambda c: c["course_id"], response["classes"]["class"]))
+    departments = list(map(lambda x: x["code"], response["term"][0]["subjects"]))
+    
+    req = requests.get(
+        "https://api.princeton.edu:443/student-app/1.0.1/courses/courses",
+        params={"fmt": "json", "term": term, "subject": ','.join(departments)},
+        headers={"Authorization": "Bearer " + refresh_token()})
+    response = json.loads(req.text)
+
+    course_ids = []
+    for subject in response["term"][0]["subjects"]:
+        course_ids.extend(list(map(lambda x: x["course_id"], subject["courses"])))
+    
     return course_ids
 
 # return a list of crosslistings associated with a course
@@ -95,6 +109,3 @@ def update_metadata():
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
     db.metadata.update_one()
-
-if __name__ == "__main__":
-    print(get_current_term())
