@@ -35,6 +35,15 @@ def get_details(term, course_id):
     details["_id"] = details["course_id"]
     return details
 
+# get current term id
+def get_current_term():
+    req = requests.get(
+        "https://api.princeton.edu:443/student-app/1.0.1/courses/terms",
+        params={"fmt": "json"},
+        headers={"Authorization": "Bearer " + refresh_token()})
+    response = json.loads(req.text)
+    return response["term"][0]["code"]
+
 # get a list of all course ids for a term
 def get_course_ids(term):
     req = requests.get(f"https://api.princeton.edu/registrar/course-offerings/classes/{term}", 
@@ -81,3 +90,11 @@ def get_transpose(graph):
                 transposed[val] = []
             transposed[val].append(key)
     return transposed
+
+def update_metadata():
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    db.metadata.update_one()
+
+if __name__ == "__main__":
+    print(get_current_term())
