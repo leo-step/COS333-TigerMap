@@ -84,10 +84,10 @@ def get_prereqs(course_details):
     return prereqs
 
 # insert list of course detail documents into database
-def insert_details(details):
+def insert_details(details, collection_name):
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
-    db.details.insert_many(details)
+    db[collection_name].insert_many(details)
 
 # insert course_id graph into the database
 def insert_graph(graph):
@@ -105,7 +105,26 @@ def get_transpose(graph):
             transposed[val].append(key)
     return transposed
 
-def update_metadata():
+def get_metadata():
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
-    db.metadata.update_one()
+    return db.metadata.find_one()
+
+def update_metadata(new_term, old_metadata):
+    new_terms = old_metadata["included_terms"]
+    new_terms.pop()
+    new_terms.insert(0, new_term)
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    db.metadata.update_one({}, {"current_term": new_term, "included_terms": new_terms})
+    return new_terms
+
+def drop_collection(collection_name):
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    db.drop_collection(collection_name)
+
+def rename_collection(collection_name, new_name):
+    client = pymongo.MongoClient(os.getenv("DB_CONN"))
+    db = client.courses
+    db[collection_name].rename(new_name)

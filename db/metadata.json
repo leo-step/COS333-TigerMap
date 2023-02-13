@@ -1,4 +1,5 @@
 {
+    "_id": "terms",
     "current_term": "12345",
     "included_terms": ["48211", "12414", "95942", "12345"],
     "departments": [

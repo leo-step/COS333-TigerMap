@@ -1,8 +1,12 @@
-from utils import get_details, get_course_ids, get_prereqs, \
-    get_crosslistings, insert_details, insert_graph, get_transpose
-from constants import *
+from utils import *
 
-terms = [FALL20, SPRING20, FALL21, SPRING21, FALL22, SPRING22][::-1]
+current_term = get_current_term()
+metadata = get_metadata()
+
+if metadata["current_term"] == current_term:
+    exit()
+
+terms = update_metadata(current_term, metadata)
 
 id_to_prereq_codes = {} # course_id => [course codes]
 prereq_code_to_id = {} # course code => course_id
@@ -25,7 +29,7 @@ for i, term in enumerate(terms):
         course_details.append(course_detail)
         if len(course_details) % 25 == 0:
             print(f"{len(course_details)} completed")
-    insert_details(course_details)
+    insert_details(course_details, current_term)
     print(f"Inserted {len(course_details)} course details")
 
 for key, arr in id_to_prereq_codes.items():
@@ -38,6 +42,8 @@ for key, arr in id_to_prereq_codes.items():
 
 postreq_graph = get_transpose(prereq_graph)
 
+drop_collection("graph")
+
 prereq_graph["_id"] = "prereq"
 insert_graph(prereq_graph)
 print("Inserted prereq graph")
@@ -45,3 +51,6 @@ print("Inserted prereq graph")
 postreq_graph["_id"] = "postreq"
 insert_graph(postreq_graph)
 print("Inserted postreq graph")
+
+drop_collection("details")
+rename_collection(current_term, "details")
