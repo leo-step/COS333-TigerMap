@@ -20,7 +20,7 @@ function CurrentCourse(props) {
           style={{ textAlign: "center", fontSize: "24px", marginBottom: "0px" }}
           className="orange-no-hover"
         >
-          <i>The course details will appear here.</i>
+          <i>Course details will appear here.</i>
         </p>
       </div>
     );
@@ -38,7 +38,7 @@ function CurrentCourse(props) {
             rel="noreferrer"
             className="btn-main"
           >
-            <Button className="btn-main btn-orange">Course Offerings</Button>
+            <Button className="btn-main btn-orange">Registrar</Button>
           </a>
           <a
             href={`https://www.princetoncourses.com/course/${props.details.term}${props.details._id}`}
@@ -46,11 +46,11 @@ function CurrentCourse(props) {
             rel="noreferrer"
             className="btn-main"
           >
-            <Button className="btn-main btn-green">Course Evaluations</Button>
+            <Button className="btn-main btn-green">Princeton Courses</Button>
           </a>
           <span className="btn-main">
             <Button onClick={() => setCollapse(!collapse)}>
-              {(!collapse && "Collapse") || "Uncollapse"}
+              {(!collapse && "See Less") || "See More"}
             </Button>
           </span>
         </h2>
