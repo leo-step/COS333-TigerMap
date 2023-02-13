@@ -1,0 +1,26 @@
+name: run-cron
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - run: |
+          python db/populate.py
+        env:
+          SECRET: ${{ secrets.SECRET }}
+          DB_CONN: ${{ secrets.DB_CONN }}
+          APP_SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
