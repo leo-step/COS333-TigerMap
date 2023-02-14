@@ -22,6 +22,7 @@ function TrackButton(props) {
       <h3>
         {props.track.title} {props.track.emoji}
       </h3>
+      <p>Created by: {props.track.netid}</p>
     </Button>
   );
 }

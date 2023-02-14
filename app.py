@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session, redirect, url_for
 from flask_cors import CORS # comment this on deployment
+from CASClient import CASClient
 from collections import defaultdict
 import pymongo
 import os
@@ -14,16 +15,25 @@ app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 app.secret_key = os.getenv("APP_SECRET_KEY")
 CORS(app)
 
+cas_client = CASClient()
+
 @app.route("/")
 def index():
+    if not cas_client.is_logged_in():
+        return redirect(url_for("login"))
     return app.send_static_file("index.html")
 
 @app.errorhandler(404)
 def not_found(e):
+    if not cas_client.is_logged_in():
+        session["next"] = request.url
+        return redirect(url_for("login"))
     return app.send_static_file('index.html')
 
 @app.route("/api")
 def api():
+    if not cas_client.is_logged_in():
+        return jsonify({}), 401
     fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1}
     details_fields = {"crosslistings": 1, "long_title": 1, "distribution_area_short": 1, "description": 1,
         "reading_writing_assignment": 1, "other_restrictions": 1, "term": 1}
@@ -47,6 +57,8 @@ def api():
     
 @app.route("/search")
 def search():
+    if not cas_client.is_logged_in():
+        return jsonify({}), 401
     query = request.args.get("query")
     if not query:
         print("No query provided", file=sys.stderr)
@@ -100,6 +112,9 @@ def search():
 
 @app.route("/createtrack", methods = ["POST"])
 def create_tracks():
+    if not cas_client.is_logged_in():
+        return jsonify({}), 401
+    netid = cas_client.authenticate()
     title = request.json.get("title")
     emoji = request.json.get("emoji")
     courses_json_string = request.json.get("courses")
@@ -123,7 +138,7 @@ def create_tracks():
         client = pymongo.MongoClient(os.getenv("DB_CONN"))
         db = client.courses
         courses = list(db.details.find({"_id": {"$in" : course_ids}}, fields))
-        result = db.tracks.insert_one({"title": title, "emoji": emoji, "courses": courses})
+        result = db.tracks.insert_one({"title": title, "emoji": emoji, "courses": courses, "netid": netid})
         return jsonify({"id": str(result.inserted_id)})
     except Exception as ex:
         print(ex, sys.stderr)
@@ -132,8 +147,10 @@ def create_tracks():
 
 @app.route("/gettracks")
 def get_tracks():
+    if not cas_client.is_logged_in():
+        return jsonify({}), 401
     try:
-        fields = {"title": 1, "emoji": 1}
+        fields = {"title": 1, "emoji": 1, "netid": 1}
         client = pymongo.MongoClient(os.getenv("DB_CONN"))
         db = client.courses
         data = list(db.tracks.find({}, fields))
@@ -149,6 +166,8 @@ def get_tracks():
 
 @app.route("/trackdetails")
 def track_details():
+    if not cas_client.is_logged_in():
+        return jsonify({}), 401
     track_id = request.args.get("id")
     if not track_id:
         return jsonify({}), 400
@@ -202,5 +221,17 @@ def track_details():
 #         print(ex, sys.stderr)
 #         return jsonify({}), 500
 
+@app.route("/login")
+def login():
+    cas_client.authenticate()
+    next = url_for("index")
+    if "next" in session:
+        next = session.pop("next")
+    return redirect(next)
+
+@app.route("/logout")
+def logout():
+    cas_client.logout()
+
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=50001)

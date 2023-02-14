@@ -40,7 +40,7 @@ function TrackDetails() {
       <Row className="justify-content-center">
         {track && (
           <Table
-            header={track.title + " " + track.emoji}
+            header={track.title + " " + track.emoji + " (" + track.netid + ")"}
             setCourseId={(id) => navigate(`/${id}`)}
             courses={track.courses}
             placeholder={`A course track is a group of courses that aligns with a student's interest area. 
