@@ -95,6 +95,12 @@ def search():
                                 "path": "catnum"
                             },
                         },
+                        {
+                            "autocomplete": {
+                                "query": query,
+                                "path": "concat"
+                            },
+                        }
                     ],
                 }
                 }

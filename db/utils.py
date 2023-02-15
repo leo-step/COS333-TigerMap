@@ -88,6 +88,11 @@ def insert_details(details, collection_name):
     client = pymongo.MongoClient(os.getenv("DB_CONN"))
     db = client.courses
     db[collection_name].insert_many(details)
+    db[collection_name].update_many({},
+    [
+        {"$set": {"concat": {"$concat": ["$subject", {"$substr": ["$catnum", 1, -1]}]}}}
+    ]
+)
 
 # insert course_id graph into the database
 def insert_graph(graph):
