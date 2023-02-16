@@ -28,6 +28,6 @@ const DEFAULT_SEARCH = [
 
 // DEVELOPMENT: "http://127.0.0.1:5000"
 // DEPLOYMENT: ""
-const URL_PREFIX = "http://localhost:50001"
+const URL_PREFIX = ""
 
 export { DEFAULT_SEARCH, URL_PREFIX };
